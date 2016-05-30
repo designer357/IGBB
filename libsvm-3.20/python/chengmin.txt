@@ -1,0 +1,1 @@
+已经更改了svm.py 中的libsvm = CDLL(path.join(dirname, r'libsvm-3.20\windows\libsvm.dll'))代码

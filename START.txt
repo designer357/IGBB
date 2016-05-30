@@ -1,0 +1,19 @@
+# Unix submit description file
+universe                = vanilla
+executable              = /usr/bin/python
+arguments               = /home/grads/mcheng223/IGBB/IGBB.py
+log                     = log_IGBB.log
+output                  = outfile_IGBB.txt
+error                   = errors_IGBB.txt
+should_transfer_files   = Yes
+when_to_transfer_output = ON_EXIT
+initialdir              = /home/grads/mcheng223/IGBB/
+queue
+
+
+0,1,2,3
+
+2,2,1
+2,2,2
+2,2,3
+2,2,4
