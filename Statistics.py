@@ -29,6 +29,9 @@ Y = np.array(lstm_size_list)
 Z = np.array(acc_list)
 
 
+
+
+
 from scipy.interpolate import griddata
 
 fig = plt.figure(figsize=plt.figaspect(0.5))
