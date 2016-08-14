@@ -2,27 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19bc0b74-f7bf-4c0e-b163-4b7d397165d6" name="Default" comment="The second test">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT_Code_Red_I.txt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT_Code_Red_I.txt22222.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT_Code_Red_I_Nimda.txt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT_Code_Red_I_Slammer.txt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT_Nimda.txt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT_Nimda_Slammer.txt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT_Slammer.txt.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libsvm-3.20/libsvm.so.2_Mac" afterPath="$PROJECT_DIR$/libsvm-3.20/libsvm.so.2_Mac" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libsvm-3.20/svm-predict" afterPath="$PROJECT_DIR$/libsvm-3.20/svm-predict" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libsvm-3.20/svm-scale" afterPath="$PROJECT_DIR$/libsvm-3.20/svm-scale" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libsvm-3.20/svm-train" afterPath="$PROJECT_DIR$/libsvm-3.20/svm-train" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/IGBB.iml" afterPath="$PROJECT_DIR$/.idea/IGBB.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Keras.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Keras2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Keras3 (lmde 的冲突副本 2016-05-23).py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Main_Keras.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Main_Keras.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Main_Keras2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Main_Keras2.sh" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT2.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/RESULT_BGP_DATA.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Records.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imdb_lstm.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outfile_IGBB.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/bands.dat" afterPath="$PROJECT_DIR$/Data/bands.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/heart.dat" afterPath="$PROJECT_DIR$/Data/heart.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/sonar.dat" afterPath="$PROJECT_DIR$/Data/sonar.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Data/spambase.dat" afterPath="$PROJECT_DIR$/Data/spambase.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main_Keras.sh" afterPath="$PROJECT_DIR$/Main_Keras.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main_Keras2.sh" afterPath="$PROJECT_DIR$/Main_Keras2.sh" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libsvm-3.20/libsvm.so.2" afterPath="$PROJECT_DIR$/libsvm-3.20/libsvm.so.2" />
     </list>
     <ignored path="IGBB.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,16 +66,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main_Keras.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Main_Keras.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4940">
-              <caret line="191" column="15" selection-start-line="191" selection-start-column="15" selection-end-line="191" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Main_Keras_SingleFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main_Keras_SingleFile.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -103,11 +86,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Slammer_AS_513_half_minutes.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Slammer_AS_513_half_minutes.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Slammer_AS_513_half_minutes.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="208">
               <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="START.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/START.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="468">
+              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -259,6 +252,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -612,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1464612667473</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="The second test">
+      <created>1471181949816</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1471181949816</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -656,47 +657,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/Keras2.py</url>
-          <line>234</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Nimda_AS_513_half_minutes.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Code_Red_I_AS_513_half_minutes.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="6" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Output4/BGP_DATA.txtInfo_Bagging_ACC_List.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Keras2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/svm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -708,13 +673,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RESULT.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="891" column="17" selection-start-line="891" selection-start-column="17" selection-end-line="891" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -743,13 +701,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/START.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -914,13 +865,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RESULT_BGP_DATA.txt.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="1456" column="0" selection-start-line="1456" selection-start-column="0" selection-end-line="1456" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Statistics.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
@@ -1038,6 +982,62 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
           <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RESULT.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="891" column="17" selection-start-line="891" selection-start-column="17" selection-end-line="891" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Records.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RESULT2.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2418">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RESULT_BGP_DATA.txt.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="713">
+          <caret line="1456" column="0" selection-start-line="1456" selection-start-column="0" selection-end-line="1456" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/outfile_IGBB.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/START.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
