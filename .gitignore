@@ -1,0 +1,23 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.idea/workspace (MC-PC's conflicted copy 2016-08-29).xml
+0729.txt
+0829.txt
+BGPData/Generate_M.py
+BGPData/HB_AS_Leak_12793.txt
+BGPData/HB_AS_Leak_13237.txt
+BGPData/HB_AS_Leak_1853.txt
+BGPData/HB_C_N_S_Multi.txt
+BGPData/HB_Code_Red_I.txt
+BGPData/HB_Nimda.txt
+BGPData/HB_Slammer.txt
+Code_Red_I_AS_513_half_minutes_ploting_images/
+IGBB2to1.py
+Information Gain Based Bagging Boosting Model/
+Nimda_AS_513_half_minutes_ploting_images/
+Output_BGPData/
+libsvm-3.20/svm-predict.exe
+libsvm-3.20/svm-scale.exe
+libsvm-3.20/svm-train.exe
+ooooooo_code_red_I.txt
+oooooooooooooooo_slammer.txt

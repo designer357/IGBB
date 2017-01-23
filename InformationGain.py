@@ -21,9 +21,6 @@ def mutualInformation(jointProb):
     Calculates the mutual information from the output of
     the jointProbs function
     '''
-    
-    
-
 def jointProbs(x,y):
     '''
     Calculates the probabilities of joint probabilities for the different values of x and y
@@ -140,16 +137,18 @@ def informationGain(x,y):
 
     
 
-"""
+
 if __name__=='__main__':
     #x=np.random.rand(1,5)
     #y=np.round(np.random.rand(5,1))
-    x=[1.2,1.5,3.1,1.1]
+    x=np.array([[1.2,1.5],[3,3.1],[1.1,1.2],[2,80]])
     y=[1.0,2.0,1,1.0]
     print(x)
     print(y)
-    print(informationGain(x,y))
-"""
+    print(informationGain(x[:,0],y))
+    print(informationGain(x[:,1],y))
+
+
 
     
     
