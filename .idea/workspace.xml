@@ -1,169 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="19bc0b74-f7bf-4c0e-b163-4b7d397165d6" name="Default" comment="Delete lstm related files. Only keep the imbalance code.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/HB_AS_Leak_12793" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/HB_AS_Leak_13237" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/HB_AS_Leak_1853" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/HB_Code_Red_I" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/HB_Nimda" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/HB_Slammer" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/IB_C_S_Training.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/IB_Code_Red_I.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/IB_Slammer.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/aa/HB_AS_Leak_12793" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/aa/HB_AS_Leak_13237" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/aa/HB_AS_Leak_1853" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/aa/HB_Code_Red_I" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/aa/HB_Nimda" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/aa/HB_Slammer" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BGPData/bb/Code_Red_I.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IGBB_Multi.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/IGBB_sklearnbased.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_12793.txtInfo_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_12793.txtInfo_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_12793.txtInfo_Bagging_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_12793.txtInfo_Bagging_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_12793.txtInfo_Bagging_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_12793.txtInfo_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_12793.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_12793.txtInfo_SubFeature_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_12793.txtInfo_SubFeature_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_13237.txtInfo_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_13237.txtInfo_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_13237.txtInfo_Bagging_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_13237.txtInfo_Bagging_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_13237.txtInfo_Bagging_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_13237.txtInfo_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_13237.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_13237.txtInfo_SubFeature_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_13237.txtInfo_SubFeature_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_1853.txtInfo_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_1853.txtInfo_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_1853.txtInfo_Bagging_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_1853.txtInfo_Bagging_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_1853.txtInfo_Bagging_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_1853.txtInfo_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_1853.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_1853.txtInfo_SubFeature_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_AS_Leak_1853.txtInfo_SubFeature_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Code_Red_I.txtInfo_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Code_Red_I.txtInfo_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Code_Red_I.txtInfo_Bagging_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Code_Red_I.txtInfo_Bagging_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Code_Red_I.txtInfo_Bagging_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Code_Red_I.txtInfo_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Code_Red_I.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Code_Red_I.txtInfo_SubFeature_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Code_Red_I.txtInfo_SubFeature_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Nimda.txtInfo_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Nimda.txtInfo_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Nimda.txtInfo_Bagging_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Nimda.txtInfo_Bagging_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Nimda.txtInfo_Bagging_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Nimda.txtInfo_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Nimda.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Nimda.txtInfo_SubFeature_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Nimda.txtInfo_SubFeature_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Slammer.txtInfo_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Slammer.txtInfo_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Slammer.txtInfo_Bagging_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Slammer.txtInfo_Bagging_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Slammer.txtInfo_Bagging_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Slammer.txtInfo_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Slammer.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Slammer.txtInfo_SubFeature_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/HB_Slammer.txtInfo_SubFeature_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/IB_Nimda.txtInfo_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/IB_Nimda.txtInfo_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/IB_Nimda.txtInfo_Bagging_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/IB_Nimda.txtInfo_Bagging_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/IB_Nimda.txtInfo_Bagging_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/IB_Nimda.txtInfo_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/IB_Nimda.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/IB_Nimda.txtInfo_SubFeature_Auc_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Output_BGPData2/IB_Nimda.txtInfo_SubFeature_G_mean_List.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/loaddata.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/train.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/A+RNN_1/A.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/A+RNN_1/ApprovalSheet.xlsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/A+RNN_1/CA_KY.xlsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/A+RNN_1/CA_Qing.xlsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/A+RNN_1/CA_Sarana.xlsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/A+RNN_1/RNN_Implementation.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/A+RNN_1/ScorePerQuestion.xlsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Data3/Code_Red_I.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Data3/Slammer.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Data4/Code_Red_I.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Data4/Slammer.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Data5/Code_Red_I_Nimda.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Main_Keras_SingleFile.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libsvm-3.20/libsvm.so.2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libsvm-3.20/svm-predict" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libsvm-3.20/svm-scale" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libsvm-3.20/svm-train" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data/bands.dat" afterPath="$PROJECT_DIR$/OtherData/bands.dat" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data/heart.dat" afterPath="$PROJECT_DIR$/OtherData/heart.dat" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data/page-blocks0.dat" afterPath="$PROJECT_DIR$/OtherData/page-blocks0.dat" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data/sonar.dat" afterPath="$PROJECT_DIR$/OtherData/sonar.dat" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data/spambase.dat" afterPath="$PROJECT_DIR$/OtherData/spambase.dat" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data2/Ionosphere.dat" afterPath="$PROJECT_DIR$/OtherData/Ionosphere.dat" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/BGP_DATA" afterPath="$PROJECT_DIR$/BGPData/bb/BGP_DATA" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/BGP_DATA.txt" afterPath="$PROJECT_DIR$/BGPData/bb/BGP_DATA.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/Code_Red_I" afterPath="$PROJECT_DIR$/BGPData/bb/Code_Red_I" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/Code_Red_I_Nimda.txt" afterPath="$PROJECT_DIR$/BGPData/bb/Code_Red_I_Nimda.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/Code_Red_I_Slammer.txt" afterPath="$PROJECT_DIR$/BGPData/bb/Code_Red_I_Slammer.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/Nimda" afterPath="$PROJECT_DIR$/BGPData/bb/Nimda" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/Nimda.txt" afterPath="$PROJECT_DIR$/BGPData/IB_Nimda.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/Nimda_Slammer.txt" afterPath="$PROJECT_DIR$/BGPData/bb/Nimda_Slammer.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/Preprocessing.py" afterPath="$PROJECT_DIR$/BGPData/Preprocessing.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data3/Slammer" afterPath="$PROJECT_DIR$/BGPData/bb/Slammer" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data4/BGP_DATA.txt" afterPath="$PROJECT_DIR$/BGPData/IB_C_N_Training.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data4/Nimda.txt" afterPath="$PROJECT_DIR$/BGPData/bb/Nimda.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data5/Code_Red_I_Slammer.txt" afterPath="$PROJECT_DIR$/BGPData/bb/Slammer.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Data5/Nimda_Slammer.txt" afterPath="$PROJECT_DIR$/BGPData/IB_N_S_Training.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/IGBB.py" afterPath="$PROJECT_DIR$/mainfunc.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output/Ionosphere.datInfo_Auc_List.txt" afterPath="$PROJECT_DIR$/Output_OtherData/Ionosphere.datInfo_Auc_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output/Ionosphere.datInfo_Bagging_Auc_List.txt" afterPath="$PROJECT_DIR$/Output_OtherData/Ionosphere.datInfo_Bagging_Auc_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output/Ionosphere.datInfo_SubFeature_Auc_List.txt" afterPath="$PROJECT_DIR$/Output_OtherData/Ionosphere.datInfo_SubFeature_Auc_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output/Reformed_Ionosphere.datInfo_Bagging_Auc_List.txt" afterPath="$PROJECT_DIR$/Output_OtherData/Reformed_Ionosphere.datInfo_Bagging_Auc_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output/Result_Search.py" afterPath="$PROJECT_DIR$/Output_OtherData/Result_Search.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output/haha.png" afterPath="$PROJECT_DIR$/Output_OtherData/haha.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/BGP_DATA.txtInfo_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/BGP_DATA.txtInfo_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/BGP_DATA.txtInfo_Auc_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/BGP_DATA.txtInfo_Auc_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/BGP_DATA.txtInfo_Bagging_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/BGP_DATA.txtInfo_Bagging_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/BGP_DATA.txtInfo_Bagging_Auc_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/BGP_DATA.txtInfo_Bagging_Auc_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/BGP_DATA.txtInfo_SubFeature_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/BGP_DATA.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/BGP_DATA.txtInfo_SubFeature_Auc_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/BGP_DATA.txtInfo_SubFeature_Auc_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Code_Red_I.txtInfo_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Code_Red_I.txtInfo_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Code_Red_I.txtInfo_Bagging_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Code_Red_I.txtInfo_Bagging_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Code_Red_I.txtInfo_SubFeature_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Code_Red_I.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Code_Red_I_Nimda.txtInfo_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Code_Red_I_Nimda.txtInfo_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Code_Red_I_Nimda.txtInfo_Bagging_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Code_Red_I_Nimda.txtInfo_Bagging_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Code_Red_I_Nimda.txtInfo_SubFeature_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Code_Red_I_Nimda.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Code_Red_I_Slammer.txtInfo_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Code_Red_I_Slammer.txtInfo_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Code_Red_I_Slammer.txtInfo_Bagging_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Code_Red_I_Slammer.txtInfo_Bagging_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Code_Red_I_Slammer.txtInfo_SubFeature_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Code_Red_I_Slammer.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Nimda.txtInfo_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Nimda.txtInfo_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Nimda.txtInfo_Bagging_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Nimda.txtInfo_Bagging_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Nimda.txtInfo_SubFeature_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Nimda.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Nimda_Slammer.txtInfo_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Nimda_Slammer.txtInfo_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Nimda_Slammer.txtInfo_Bagging_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Nimda_Slammer.txtInfo_Bagging_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Nimda_Slammer.txtInfo_SubFeature_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Nimda_Slammer.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Slammer.txtInfo_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Slammer.txtInfo_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Slammer.txtInfo_Bagging_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Slammer.txtInfo_Bagging_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Output4/Slammer.txtInfo_SubFeature_ACC_List.txt" afterPath="$PROJECT_DIR$/Output_BGPData222/Slammer.txtInfo_SubFeature_ACC_List.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/svm.py" afterPath="$PROJECT_DIR$/svm2.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/svmutil.py" afterPath="$PROJECT_DIR$/svmutil2.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libsvm-3.20/libsvm.so.2_Mac" afterPath="$PROJECT_DIR$/libsvm-3.20/libsvm.so.2_Mac" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libsvm-3.20/svm.o" afterPath="$PROJECT_DIR$/libsvm-3.20/svm.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/IGBB.iml" afterPath="$PROJECT_DIR$/.idea/IGBB.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="19bc0b74-f7bf-4c0e-b163-4b7d397165d6" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/adaboost.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InformationGain.py" afterPath="$PROJECT_DIR$/InformationGain.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/START.txt" afterPath="$PROJECT_DIR$/START.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libsvm-3.20/python/svm.py" afterPath="$PROJECT_DIR$/libsvm-3.20/python/svm.py" />
     </list>
     <ignored path="IGBB.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -180,7 +20,7 @@
     <SUITE FILE_PATH="coverage/IGBB$IGBB2to1.coverage" NAME="IGBB2to1 Coverage Results" MODIFIED="1472580001240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IGBB$loaddata.coverage" NAME="loaddata Coverage Results" MODIFIED="1485184474890" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IGBB$Preprocessing.coverage" NAME="Preprocessing Coverage Results" MODIFIED="1464081361793" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data3" />
-    <SUITE FILE_PATH="coverage/IGBB$adaboost.coverage" NAME="adaboost Coverage Results" MODIFIED="1485184484750" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/IGBB$adaboost.coverage" NAME="adaboost Coverage Results" MODIFIED="1485185670787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IGBB$IGBB_Plotting.coverage" NAME="IGBB_Plotting Coverage Results" MODIFIED="1464014992488" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IGBB$IGBB222.coverage" NAME="IGBB222 Coverage Results" MODIFIED="1472230654069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/IGBB$InformationGain.coverage" NAME="InformationGain Coverage Results" MODIFIED="1485179723256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -237,8 +77,8 @@
       <file leaf-file-name="adaboost.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/adaboost.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="237" column="12" lean-forward="false" selection-start-line="237" selection-start-column="12" selection-end-line="237" selection-end-column="12" />
+            <state relative-caret-position="70">
+              <caret line="256" column="27" lean-forward="false" selection-start-line="256" selection-start-column="27" selection-end-line="256" selection-end-column="27" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -402,8 +242,8 @@
         <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/mainfunc.py" />
         <option value="$PROJECT_DIR$/InformationGain.py" />
-        <option value="$PROJECT_DIR$/adaboost.py" />
         <option value="$PROJECT_DIR$/loaddata.py" />
+        <option value="$PROJECT_DIR$/adaboost.py" />
       </list>
     </option>
   </component>
@@ -873,7 +713,14 @@
       <option name="project" value="LOCAL" />
       <updated>1485166338586</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary=".">
+      <created>1485184570804</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1485184570804</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView">
@@ -888,15 +735,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="709" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29321486" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20678514" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994923" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994923" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3468697" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41285956" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5177665" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994923" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -927,7 +774,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="The second test" />
     <MESSAGE value="Delete lstm related files. Only keep the imbalance code." />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete lstm related files. Only keep the imbalance code." />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1292,8 +1140,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/adaboost.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="237" column="12" lean-forward="false" selection-start-line="237" selection-start-column="12" selection-end-line="237" selection-end-column="12" />
+        <state relative-caret-position="70">
+          <caret line="256" column="27" lean-forward="false" selection-start-line="256" selection-start-column="27" selection-end-line="256" selection-end-column="27" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
