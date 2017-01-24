@@ -23,7 +23,8 @@ Using the Hastie (10.2) dataset, we can appreciate a significant reduction in th
 
 ### References
 - Trevor Hastie, Robert Tibshirani, Jerome Friedman - *The Elements of Statistical Learning*
-### License
-This project is licensed under the MIT License.
+
 
 If had any problem, please send me email: mc.cheng@my.cityu.edu.hk
+### License
+This project is licensed under the MIT License.
