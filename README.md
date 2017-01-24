@@ -11,7 +11,7 @@ The predictions are aggregated through a weighted majority vote.
 In bagging process, the input negative data (majority data) sets are under-sampled to balance data distribution.
 The final predictions  of bagging are also aggregated through majority vote.
 
-### Method Illustration
+### Method 
 Information Gain based Bagging Boosting algorithm:<br />
 <img src="https://drive.google.com/uc?export=view&id=0B1-nrGrfxtnjREgwZVlzY3I0TFE"> <br />
 
