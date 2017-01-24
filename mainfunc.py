@@ -240,6 +240,18 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
     accuracy = float(ac_positive+ac_negative)/len(output)
 
     return g_mean,auc,accuracy
+def write_to_disk(flag,each_file,method_dict,bagging_list,results,text):
+    output_folder = os.path.join(os.getcwd(), 'output')
+    if not os.path.isdir(output_folder):
+        os.makedirs(output_folder)
+    with open(os.path.join(output_folder,flag+'_'+each_file+'_BI_'+text.split('%')[0]+'_K_'+text.split('%')[1]+'.txt'),'w')as fout:
+        for tab_i in range(bagging_list):
+            line1 = 'Bagging Size: '+str(tab_i)
+            for tab_j in range(len(method_dict)):
+                line1 = line1 + ',' + {v:k for k, v in method_dict.items()}[tab_j] + ':' + str(results[tab_i][tab_j])
+            line1 = line1 + '\n'
+            fout.write(line1)
+
 
 
 
@@ -295,8 +307,13 @@ if __name__=='__main__':
             accuracy_list.append(accuracy_temp)
 
         visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
+        write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
+
         visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
+        write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
+
         visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
+        write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
 
 
     print(time.time()-start)

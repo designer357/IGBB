@@ -8,17 +8,21 @@ def set_style():
 set_style()
 
 def plotting(flag,filename,method_dict,bagging_list,results,text=''):
-    color_list = ['y', 'g','#FF8C00','#FD8CD0','c', 'b', 'r', 'm']
+    color_list = ['r','y', 'g','#FF8C00','#FD8CD0','c', 'b','m']
 
     for tab in range(len(method_dict)):
         plt.plot(bagging_list,results[:,tab],color_list[tab],label={v:k for k, v in method_dict.items()}[tab])
     plt.legend()
     plt.tick_params(labelsize=12)
-    plt.xlabel('Bagging Size')
-    plt.ylabel(flag)
+    plt.xlabel('Bagging Size',fontsize=12)
+    plt.ylabel(flag,fontsize=12)
+    plt.ylim(0,1.1)
     plt.grid()
     plt.tight_layout()
-    plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),filename+text+'.png',dpi=400))
+    plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),filename + text +'.png'),dpi=400)
+    plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),filename + text +'.pdf'),dpi=400)
+    plt.clf()
+
 def plot_error_rate(max_n,interval_n,er_train, er_test):
     x = [i for i in range(10, max_n, interval_n)]
     plt.plot(x,er_train,'b',label='Ada.Boost')
