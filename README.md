@@ -1,5 +1,5 @@
 
-## Implementation of Information Gain based Bagging Boosting classifier
+## IGBB-Information Gain based Bagging Boosting classifier
 
 ### Description
 
