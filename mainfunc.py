@@ -156,21 +156,11 @@ def igbb(bagging_size,boosting_iter):
 
 
 #def InformationGainBoosting(Iterations):
-def Main(Method_Dict,filename):
+def Main(Method_Dict,bagging_size,input_data_path,out_put_path,filename):
     #Name_Str_List = ["Code_Red_I_NimdaSlammer.txt","Code_Red_I_SlammerNimda.txt","Nimda_SlammerCode_Red_I.txt"]
-
-    global input_data_path,out_put_path
     print(filename+" is processing......")
+    data = loaddata.loadData(input_data_path, filename)
 
-    Data_=loaddata.loadData(input_data_path,filename)
-    Positive_Data=Data_[Data_[:,-1]==positive_sign]
-    Negative_Data=Data_[Data_[:,-1]==negative_sign]
-    print("IR is :"+str(float(len(Negative_Data))/len(Positive_Data)))
-    count_positive = len(Positive_Data)
-    count_negative = len(Negative_Data)
-    cross_folder=3
-    Positive_Data_Index_list=[i for i in range(len(Positive_Data))]
-    Negative_Data_Index_list=[i for i in range(len(Negative_Data))]
 
     Method_List=[k for k,v in Method_Dict.items()]
     Plot_auc_list=[]
@@ -186,17 +176,18 @@ def Main(Method_Dict,filename):
     Temp_SubFeature_G_mean_list = {}
     Temp_SubFeature_ACC_list = {}
 
-    for eachMethod,methodLabel in Method_Dict.items():
-        print(eachMethod+" is running...")
-        Auc_list[eachMethod] = []
-        ACC_list[eachMethod] = []
-        G_mean_list[eachMethod] = []
-        Top_K_List = []
-        Total_Dimensions = len(Positive_Data[0])
+    for bagging_number in range(bagging_size):
+        print("The Bagging Number is " + str(bagging_number) + "...")
 
-        #for iteration_count in range(10):
-        for bagging_number in range(10,260,40):
-            print("The Bagging Number is "+str(bagging_number)+"...")
+        X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 1)
+
+
+        for eachMethod,methodLabel in Method_Dict.items():
+            print(eachMethod+" is running...")
+            Auc_list[eachMethod] = []
+            ACC_list[eachMethod] = []
+            G_mean_list[eachMethod] = []
+            Top_K_List = []
             Temp_Bagging_ACC_list[eachMethod+"_BN_"+str(bagging_number)] = []
             Temp_Bagging_Auc_list[eachMethod+"_BN_"+str(bagging_number)] = []
             Temp_Bagging_G_mean_list[eachMethod+"_BN_"+str(bagging_number)] = []
@@ -518,10 +509,10 @@ def Main(Method_Dict,filename):
             fout.write('\n')
 
 if __name__=='__main__':
-    global positive_sign,negative_sign,count_positive,count_negative,out_put_path
+    global positive_sign,negative_sign
     #os.chdir("/home/grads/mcheng223/IGBB")
-    positive_sign=1
-    negative_sign=0
+    positive_sign=-1
+    negative_sign=1
     count_positive=0
     count_negative=0
     input_data_path = os.path.join(os.getcwd(),"BGPData")

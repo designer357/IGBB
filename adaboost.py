@@ -2,14 +2,9 @@ import pandas as pd
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 #from sklearn.datasets import make_hastie_10_2
-import matplotlib.pyplot as plt
 import os
 import loaddata
-import matplotlib
-def set_style():
-    plt.style.use(['seaborn-paper'])
-    matplotlib.rc("font", family="serif")
-set_style()
+import visualize
 def entropyVector(x):
     '''
     Computes the entropy of a vector of discrete values
@@ -142,12 +137,6 @@ def top_feat(data,label,w,k):
     top_list=[]
     for tab in range(len(data[0])):
         top_list.append(informationGain(new_data[:, tab], label))
-        #if len(data_copy[:,tab])==len(w):
-            #for i in range(len(data_copy[:,tab])):
-                #data_copy[:,tab][i]=w[i]*data_copy[:,tab][i]
-        #else:
-            #print("Error! Data_[column] not equal to weight!")
-        #top_list.append(informationGain(data_copy[:,tab],y_))
     result=(sorted(enumerate(top_list),key=lambda a:a[1],reverse=True))
     label_=[e[0] for e in result]
     return label_[:k]
@@ -208,27 +197,6 @@ def adaboost_clf(clf, M, trainX, trainY, testX, testY, using_weights=False):
            get_error_rate(pred_test, Y_test)
 
 
-"""==================== Visualize ======================"""
-
-
-def plot_error_rate(er_train, er_test):
-    global max_n,interval_n
-
-    df_error = pd.DataFrame([er_train, er_test]).T
-    df_error.columns = ['Ada.Boost', 'IGBoosting']
-    plot1 = df_error.plot(linewidth=3, figsize=(8, 6),
-                          color=['lightblue', 'darkblue'], grid=True)
-    plot1.set_xlabel('Number of iterations', fontsize=12)
-    plot1.set_xticklabels(range(10, max_n, interval_n))
-    plot1.set_ylabel('Error rate', fontsize=12)
-    plot1.set_title('Error rate vs Number of iterations', fontsize=16)
-    #plt.axhline(y=er_test[0], linewidth=1, color='red', ls='dashed')
-    plt.savefig("IGBB_VS_ADABOOST.png",dpi=400)
-    plt.show()
-
-
-
-
 """==================== MainFunc ======================"""
 if __name__ == '__main__':
 
@@ -239,7 +207,7 @@ if __name__ == '__main__':
 
     global top_k,max_n,interval_n
     top_k = 15
-    max_n = 200
+    max_n = 400
     interval_n = 10
     input_data_path = os.path.join(os.getcwd(), "BGPData")
     filename = "HB_Nimda.txt"
@@ -264,7 +232,7 @@ if __name__ == '__main__':
     er_train = []
     er_test1 = []
     er_test2 = []
-    x_range = range(10, 200, 10)
+    x_range = range(10, max_n, interval_n)
     for i in x_range:
         print(str(i)+"_th of not using weights is running...")
         er_i = adaboost_clf(clf_tree, i, X_train, Y_train, X_test, Y_test)
@@ -276,4 +244,4 @@ if __name__ == '__main__':
         er_train.append(er_i[0])
         er_test2.append(er_i[1])
     # Compare error rate vs number of iterations
-    plot_error_rate(er_test1, er_test2)
+    visualize.plot_error_rate(er_test1, er_test2)
