@@ -25,10 +25,10 @@ def loadData(input_data_path,filename):
 def cross_tab(data,cross_folder,tab_cv):
     posi_data=data[data[:,-1]!=1.0]
     nega_data=data[data[:,-1]==1.0]
-    print("Positive is "+str(len(posi_data)))
-    print("Negative is "+str(len(nega_data)))
+    #print("Positive is "+str(len(posi_data)))
+    #print("Negative is "+str(len(nega_data)))
 
-    print("IR is :"+str(float(len(nega_data))/len(posi_data)))
+    #print("IR is :"+str(float(len(nega_data))/len(posi_data)))
     p_indexes=[i for i in range(len(posi_data))]
     n_indexes=[i for i in range(len(nega_data))]
     for tab_cross in range(cross_folder):
@@ -55,7 +55,7 @@ def cross_tab(data,cross_folder,tab_cv):
         p_test = np.array(posi_data)[p_index_test]
         n_train = np.array(nega_data)[n_index_train]
         n_test = np.array(nega_data)[n_index_test]
-        print(nega_data.shape)
+        #print(nega_data.shape)
         N = len(n_test)
         n_test2 = n_test[N - len(p_test) - 1:N - 1, :]
 
@@ -63,6 +63,7 @@ def cross_tab(data,cross_folder,tab_cv):
         train_data = np.concatenate((random.sample(n_train, len(p_train)), p_train))
 
         return train_data[:,:-1],train_data[:,-1],test_data[:,:-1],test_data[:,-1]
+"""
 input_data_path = os.path.join(os.getcwd(),"BGPData")
 filename = "HB_Nimda.txt"
 data = loadData(input_data_path,filename)
@@ -72,3 +73,4 @@ print(trainX.shape)
 print(trainY.shape)
 print(testX.shape)
 print(testY.shape)
+"""

@@ -157,7 +157,7 @@ def generic_clf(clf, trainX,trainY, testX, testY):
 """==================== Ada.Boost Implementation ======================"""
 
 
-def adaboost_clf(clf, M, trainX, trainY, testX, testY, using_weights=False):
+def igboost_clf(clf, M, trainX, trainY, testX, testY, using_weights=True):
     global top_k
     n_train, n_test = len(trainX), len(testX)
     # Initialize weights
@@ -191,10 +191,11 @@ def adaboost_clf(clf, M, trainX, trainY, testX, testY, using_weights=False):
         pred_test = [sum(x) for x in zip(pred_test,
                                          [x * alpha_m for x in pred_test_i])]
 
-    pred_train, pred_test = np.sign(pred_train), np.sign(pred_test)
+    return np.sign(pred_test)
+    #pred_train, pred_test = np.sign(pred_train), np.sign(pred_test)
     # Return error rate in train and test set
-    return get_error_rate(pred_train, Y_train), \
-           get_error_rate(pred_test, Y_test)
+    #return get_error_rate(pred_train, trainY), \
+           #get_error_rate(pred_test, testY)
 
 
 """==================== MainFunc ======================"""
@@ -213,7 +214,7 @@ if __name__ == '__main__':
     filename = "HB_Nimda.txt"
     data = loaddata.loadData(input_data_path, filename)
     print(data.shape)
-    X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 1)
+    X_train, Y_train2, X_test, Y_test = loaddata.cross_tab(data, 2, 1)
     # Split into training and test set
     #train, test = train_test_split(df, test_size=0.2)
     #X_train, Y_train = train.ix[:, :-1], train.ix[:, -1]
@@ -223,7 +224,7 @@ if __name__ == '__main__':
     #X_test = X_test.values
     # Fit a simple decision tree first
     clf_tree = DecisionTreeClassifier(max_depth=2, random_state=1)
-    er_tree = generic_clf(clf_tree,X_train,Y_train, X_test, Y_test)
+    er_tree = generic_clf(clf_tree,X_train,Y_train2, X_test, Y_test)
 
     # Fit Adaboost classifier using a decision tree as base estimator
     # Test with different number of iterations
@@ -235,12 +236,12 @@ if __name__ == '__main__':
     x_range = range(10, max_n, interval_n)
     for i in x_range:
         print(str(i)+"_th of not using weights is running...")
-        er_i = adaboost_clf(clf_tree, i, X_train, Y_train, X_test, Y_test)
+        er_i = igboost_clf(clf_tree, i, X_train, Y_train2, X_test, Y_test,False)
         er_train.append(er_i[0])
         er_test1.append(er_i[1])
     for i in x_range:
         print(str(i)+"_th of using weights and IG is running...")
-        er_i = adaboost_clf(clf_tree, i, X_train, Y_train, X_test, Y_test,True)
+        er_i = igboost_clf(clf_tree, i, X_train, Y_train2, X_test, Y_test)
         er_train.append(er_i[0])
         er_test2.append(er_i[1])
     # Compare error rate vs number of iterations
