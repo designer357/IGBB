@@ -188,7 +188,7 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
     voting_list = [[] for i in range(bagging_size)]
     output=[]
     for bagging_number in range(bagging_size):
-        print("The Bagging Number is " + str(bagging_number+1) + "...")
+        #print("The Bagging Number is " + str(bagging_number+1) + "...")
         X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 1)
         if method_label == 0:
             result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
@@ -278,6 +278,7 @@ if __name__=='__main__':
         accuracy_list = []
 
         for bagging_num in range(1,bg_max,bg_interval):
+            print("The bagging size is .................."+str(bagging_num))
             bagging_list.append(bagging_num)
             g_mean_temp = [0 for i in range(len(method_dict))]
             auc_temp = [0 for i in range(len(method_dict))]
@@ -293,9 +294,9 @@ if __name__=='__main__':
             auc_list.append(auc_temp)
             accuracy_list.append(accuracy_temp)
 
-        visualize.plotting(each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
-        visualize.plotting(each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
-        visualize.plotting(each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
 
 
     print(time.time()-start)
