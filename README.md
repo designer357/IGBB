@@ -7,7 +7,7 @@ This is an implementation of the AdaBoost algorithm for a two-class classificati
 
 ### Methods
 Adaboost algorithm: <br />
-<img src=https://drive.google.com/file/d/0B1-nrGrfxtnjREgwZVlzY3I0TFE/view" width="600"> <br />
+<img src="https://drive.google.com/file/d/0B1-nrGrfxtnjREgwZVlzY3I0TFE/view" width="600"> <br />
 
 ### Example
 Using the Hastie (10.2) dataset, we can appreciate a significant reduction in the error rate as we increase the number of iterations. <br />
