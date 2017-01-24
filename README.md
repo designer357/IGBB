@@ -1,5 +1,5 @@
 
-## Implementation of AdaBoost classifier
+## Implementation of Information Gain based Bagging Boosting classifier
 
 ### Description
 
