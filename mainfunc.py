@@ -6,23 +6,18 @@ import evaluation
 start = time.time()
 import numpy as np
 import loaddata
-import random as RANDOM
+import visualize
 #from svmutil import *
-#import seaborn as sns
-#import matplotlib.pyplot as plt
 from numpy import *
 from sklearn import tree
-from InformationGain import *
 from sklearn.svm import LinearSVC
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import roc_auc_score
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.decomposition import PCA,KernelPCA
-from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn import svm,datasets,preprocessing,linear_model
-from sklearn.ensemble import GradientBoostingClassifier,AdaBoostClassifier,RandomForestClassifier
+from sklearn import svm,preprocessing,linear_model
+from sklearn.ensemble import AdaBoostClassifier,GradientBoostingClassifier,RandomForestClassifier
+
 def entropyVector(x):
     #Computes the entropy of a vector of discrete values
     vals = np.bincount(x)
@@ -92,7 +87,6 @@ def jointProbs(x, y):
 
     return totalSum
 
-
 def informationGain(x, y):
     '''
     This implementation of information gain
@@ -152,12 +146,12 @@ def generic_clf(clf, trainX,trainY, testX, testY):
 
 def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True):
     n_train, n_test = len(trainX), len(testX)
-    # Initialize weights
+    # initialize weights
     w = np.ones(n_train) / n_train
     pred_train, pred_test = [np.zeros(n_train), np.zeros(n_test)]
 
     for i in range(M):
-        # Fit a classifier with the specific weights
+        # fit a classifier with the specific weights
         if i > 0 and using_weights == True:
             top_features = top_feat(trainX,trainY,w,top_k)
             trainX = trainX[:,top_features]
@@ -167,30 +161,29 @@ def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True)
         clf.fit(trainX, trainY, sample_weight=w)
         pred_train_i = clf.predict(trainX)
         pred_test_i = clf.predict(testX)
-        # Indicator function
+        # indicator function
         miss = [int(x) for x in (pred_train_i != trainY)]
-        # Equivalent with 1/-1 to update weights
+        # equivalent with 1/-1 to update weights
         miss2 = [x if x == 1 else -1 for x in miss]
-        # Error
+        # the error
         err_m = np.dot(w, miss) / sum(w)
-        # Alpha
+        # the alpha
         alpha_m = 0.5 * np.log((1 - err_m) / float(err_m))
-        # New weights
+        # calculate new weights
         w = np.multiply(w, np.exp([float(x) * alpha_m for x in miss2]))
-        # Add to prediction
+        # add to prediction
         pred_train = [sum(x) for x in zip(pred_train,
                                           [x * alpha_m for x in pred_train_i])]
         pred_test = [sum(x) for x in zip(pred_test,
                                          [x * alpha_m for x in pred_test_i])]
 
     pred_train, pred_test = np.sign(pred_train), np.sign(pred_test)
-    # Return error rate in train and test set
+    # return error rate in train and test set
     return pred_test
     #return get_error_rate(pred_train, trainY), get_error_rate(pred_test, testY)
 
 def MainFunc(method_label,bagging_size,input_data_path,filename):
     global positive_sign,negative_sign,boosting_i, top_k
-    #print(filename+" is processing......")
     data = loaddata.loadData(input_data_path, filename)
     voting_list = [[] for i in range(bagging_size)]
     output=[]
@@ -204,7 +197,6 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
             clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2, random_state=1))
             clf.fit(X_train, Y_train)
             result = clf.predict(X_test)
-            #classifier = train(X_Training,Y_Training,Top_K)
         elif method_label==2:
             clf=tree.DecisionTreeClassifier(max_depth=2, random_state=1)
             clf.fit(X_train, Y_train)
@@ -242,13 +234,9 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
         if output[tab]==negative_sign and output[tab]==int(Y_test[tab]):
             ac_negative += 1
     g_mean=np.sqrt(float(ac_positive*ac_negative)/(list(Y_test).count(positive_sign)*list(Y_test).count(negative_sign)))
-    #auc=float(get_auc(np.array(Output),Y_Testing,positive_sign))
-    print(Y_test)
-    print(np.array(output))
+    #auc=float(get_auc(np.array(output),Y_test,positive_sign))
 
     auc=float(roc_auc_score(Y_test, np.array(output)))
-    #print("TP is..."+str(float(ac_positive)/Output.count(positive_sign)))
-    #print("TN is..."+str(float(ac_negative)/Output.count(negative_sign)))
     accuracy = float(ac_positive+ac_negative)/len(output)
 
     return g_mean,auc,accuracy
@@ -257,14 +245,14 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
 
 if __name__=='__main__':
     global positive_sign,negative_sign,boosting_i, top_k
-    #os.chdir("/home/grads/mcheng223/IGBB")
     positive_sign = -1
     negative_sign = 1
     count_positive= 0
     count_negative= 0
-    boosting_i = 5
-    top_k = 15
-    bagging_size = 3
+    boosting_i = 20
+    top_k = 10
+    bg_max = 100
+    bg_interval = 10
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
@@ -273,8 +261,8 @@ if __name__=='__main__':
     filenamelist=os.listdir(input_data_path)
 
     #Method_Dict={"DT":1,"LR":4}
-    #method_dict={"IGBB":0,"AdaBoost":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
-    method_dict={"AdaBoost":1}
+    method_dict={"IGBB":0,"AdaBoost":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
+    #method_dict={"AdaBoost":1}
 
     for eachfile in filenamelist:
         if 'HB_Nimda' in eachfile and '.txt' in eachfile:
@@ -283,12 +271,29 @@ if __name__=='__main__':
                 pass
         else:
             continue
-        for eachMethod,eachMethodLabel in method_dict.items():
-            print(eachMethod + " is running...")
-            g_mean,auc,accuracy = MainFunc(eachMethodLabel,bagging_size, input_data_path,eachfile)
-            print("The G_mean of "+eachMethod+ " is "+str(g_mean))
-            print("The AUC of "+eachMethod+ " is "+str(auc))
-            print("The Accuracy of "+eachMethod+ " is "+str(accuracy))
+        print(eachfile + " is processing......")
+        g_mean_list = []
+        auc_list = []
+        accuracy_list = []
+
+        for bagging in range(1,100,10):
+            g_mean_temp = [0 for i in range(len(method_dict))]
+            auc_temp = [0 for i in range(len(method_dict))]
+            accuracy_temp = [0 for i in range(len(method_dict))]
+
+            for eachMethod,eachMethodLabel in method_dict.items():
+                print(eachMethod + " is running...")
+                g_mean,auc,accuracy = MainFunc(eachMethodLabel,bagging_size, input_data_path,eachfile)
+                g_mean_temp[eachMethodLabel] = g_mean
+                auc_temp[eachMethodLabel] = auc
+                accuracy_temp[eachMethodLabel] = accuracy
+            g_mean_list.append(g_mean_temp)
+            auc_list.append(auc_temp)
+            accuracy_list.append(accuracy_temp)
+
+        visualize.plotting(eachfile,method_dict,g_mean_list,text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting(eachfile,method_dict,g_mean_list,text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting(eachfile,method_dict,g_mean_list,text=str(boosting_i)+'%'+str(top_k))
 
 
     print(time.time()-start)

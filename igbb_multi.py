@@ -10,7 +10,6 @@ import random as RANDOM
 #import matplotlib.pyplot as plt
 from numpy import *
 from sklearn import tree
-from InformationGain import *
 from sklearn.svm import LinearSVC
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import roc_auc_score
@@ -20,9 +19,10 @@ from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm,datasets,preprocessing,linear_model
 from sklearn.ensemble import GradientBoostingClassifier,AdaBoostClassifier,RandomForestClassifier,BaggingClassifier
-
+global Classifier_Label
+Classifier_Label=None
 def LoadData(input_data_path,filename):
-    global count_positive,count_negative
+    global count_positive,count_negative,Classifier_Label
     with open(os.path.join(input_data_path,filename)) as fin:
         if filename == 'sonar.dat':
             negative_flag = 'M'
@@ -51,10 +51,13 @@ def LoadData(input_data_path,filename):
             val=each.split(",")
             if len(val)>0 or val[-1].strip()=="negative" or val[-1].strip()=="positive":
                 if val[-1].strip()== negative_flag:
-                    val[-1]=negative_sign
+                    val[-1]= 1.0
                     count_negative += 1
                 else:
-                    val[-1]=positive_sign
+                    if Classifier_Label == "Multi":
+                        pass
+                    else:
+                        val[-1]=positive_sign
                     count_positive += 1
                 try:
                     val=map(lambda a:float(a),val)
@@ -236,16 +239,21 @@ def Compute_average_list(mylist):
 def Main(Method_Dict,filename):
     #Name_Str_List = ["Code_Red_I_NimdaSlammer.txt","Code_Red_I_SlammerNimda.txt","Nimda_SlammerCode_Red_I.txt"]
 
-    global input_data_path,out_put_path
+    global input_data_path,out_put_path,Classifier_Label
+    Classifier_Label = "Multi"
     print(filename+" is processing......")
 
     Data_=LoadData(input_data_path,filename)
-    Positive_Data=Data_[Data_[:,-1]==positive_sign]
-    Negative_Data=Data_[Data_[:,-1]==negative_sign]
+    np.random.shuffle(Data_)
+    #Positive_Data=Data_[Data_[:,-1]==positive_sign]
+    #Negative_Data=Data_[Data_[:,-1]==negative_sign]
+    Positive_Data=Data_[Data_[:,-1]!=1.0]
+    Negative_Data=Data_[Data_[:,-1]==1.0]
+    print(Data_[:,-1])
     print("IR is :"+str(float(len(Negative_Data))/len(Positive_Data)))
     count_positive = len(Positive_Data)
     count_negative = len(Negative_Data)
-    cross_folder=2
+    cross_folder=3
     Positive_Data_Index_list=[i for i in range(len(Positive_Data))]
     Negative_Data_Index_list=[i for i in range(len(Negative_Data))]
 
@@ -272,7 +280,7 @@ def Main(Method_Dict,filename):
         Total_Dimensions = len(Positive_Data[0])
 
         #for iteration_count in range(10):
-        for bagging_number in range(1,200,50):
+        for bagging_number in range(10,100,10):
             print("The Bagging Number is "+str(bagging_number)+"...")
             Temp_Bagging_ACC_list[eachMethod+"_BN_"+str(bagging_number)] = []
             Temp_Bagging_Auc_list[eachMethod+"_BN_"+str(bagging_number)] = []
@@ -292,6 +300,7 @@ def Main(Method_Dict,filename):
                     cross_folder_acc_list=[]
                     cross_folder_g_mean_list=[]
                     for tab_cross in range(cross_folder):
+                        if not tab_cross == 1: continue
                         Positive_Data_Index_Training=[]
                         Positive_Data_Index_Testing=[]
                         Negative_Data_Index_Training=[]
@@ -312,16 +321,27 @@ def Main(Method_Dict,filename):
                         Positive_Testing_Data=np.array(Positive_Data)[Positive_Data_Index_Testing]
                         Negative_Training_Data=np.array(Negative_Data)[Negative_Data_Index_Training]
                         Negative_Testing_Data=np.array(Negative_Data)[Negative_Data_Index_Testing]
-
                         Training_Data = np.concatenate((Negative_Training_Data, Positive_Training_Data))
-
+                        N = len(Negative_Testing_Data)
+                        Negative_Testing_Data2 = Negative_Testing_Data[N-len(Positive_Testing_Data)-1:N-1,:]
+                        Testing_Data=np.append(Positive_Testing_Data,Negative_Testing_Data2,axis=0)
                         #import matplotlib.pyplot as plt
                         #plt.plot(Negative_Data_Index_Testing,Negative_Testing_Data,'g')
                         #plt.plot(Positive_Data_Index_Testing,Positive_Testing_Data,'r')
+
                         #plt.show()
 
-                        scaler = preprocessing.Normalizer()
+                        #Features=[i for i in range(len(Positive_Training_Data[0])-1)]
+                        #Sub_Features=Features[:Top_K]
+                        N = len(Negative_Testing_Data)
+                        Negative_Testing_Data2 = Negative_Testing_Data[N-len(Positive_Testing_Data)-1:N-1,:]
+                        Testing_Data=np.append(Positive_Testing_Data,Negative_Testing_Data,axis=0)
 
+                        X_Training=Training_Data[:, :-1]
+                        Y_Training=Training_Data[:, -1]
+
+                        X_Testing=Testing_Data[:, :-1]
+                        Y_Testing=Testing_Data[:, -1]
 
                         if methodLabel == 1:
                             # clf = GradientBoostingClassifier(loss='deviance',n_estimators=300, learning_rate=0.1,max_depth=2)
@@ -335,52 +355,114 @@ def Main(Method_Dict,filename):
                         elif methodLabel == 4:
                             baseleaner = linear_model.LogisticRegression()
                         elif methodLabel == 5:
-                            baseleaner = KNeighborsClassifier(5)
+                            baseleaner = KNeighborsClassifier(3)
+                        elif methodLabel==6:
+                            baseleaner = AdaBoostClassifier()
 
-                        #Features=[i for i in range(len(Positive_Training_Data[0])-1)]
-                        #Sub_Features=Features[:Top_K]
-                        N = len(Negative_Testing_Data)
-                        Negative_Testing_Data2 = Negative_Testing_Data[N-len(Positive_Testing_Data)-1:N-1,:]
-                        Testing_Data=np.append(Positive_Testing_Data,Negative_Testing_Data2,axis=0)
 
-                        #for each_str in Name_Str_List:
-                            #try:
-                                #print(filename)
-                                #print(each_str)
-                                #print(each_str.strip().replace(filename.replace(".txt","").strip(),""))
-                                #Testing_Data = LoadData(input_data_path2,each_str.replace(filename.replace(".txt",""),""))
-                            #except:
-                                #continue
-                        Y_Testing=Testing_Data[:,-1]
+                        if methodLabel == 1:
+                            D = [1 / float(len(Y_Training)) for i in range(len(Y_Training))]
+                            Sub_Features = sorted(Return_Top_K_Features(X_Training, Y_Training, D, 32))
+                            X_Training = X_Training[:, Sub_Features]
+                            X_Testing = X_Testing[:, Sub_Features]
+                        if methodLabel == 6:
+                            D = [1 / float(len(Y_Training)) for i in range(len(Y_Training))]
+                            Sub_Features = sorted(Return_Top_K_Features(X_Training, Y_Training, D, 33))
+                            X_Training = X_Training[:, Sub_Features]
+                            X_Testing = X_Testing[:, Sub_Features]
 
-                        ac_positive=0
-                        ac_negative=0
-                        clf = BaggingClassifier(baseleaner, n_estimators=bagging_number, max_samples=1.0, max_features=33,
-                                                bootstrap=False, bootstrap_features=True,
-                                                random_state=0)  # , n_jobs = -1)
+                        if methodLabel == 4:
+                            scaler = preprocessing.StandardScaler()
+                            X_Training = scaler.fit_transform(X_Training)
+                            X_Testing = scaler.fit_transform(X_Testing)
 
-                        X_Training = scaler.fit_transform(Training_Data[:,:-1])
-                        X_Testing = scaler.fit_transform(Testing_Data[:,:-1])
+                        clf = BaggingClassifier(baseleaner, n_estimators=bagging_number)  # , n_jobs = -1)
 
-                        clf.fit(X_Training, Training_Data[:,-1])
-
+                        clf.fit(X_Training, Y_Training)
                         Output = clf.predict(X_Testing)
 
+                        ac_positive1 = 0
+                        ac_positive2 = 0
+                        ac_positive3 = 0
+
+                        ac_negative = 0
+                        """
                         for tab in range(len(Output)):
                             if Output[tab]==positive_sign and Output[tab]==int(Y_Testing[tab]):
                                 ac_positive += 1
                             if Output[tab]==negative_sign and Output[tab]==int(Y_Testing[tab]):
                                 ac_negative += 1
-                        g_mean=np.sqrt(float(ac_positive*ac_negative)/(count_positive*count_negative))
+                        """
+                        for tab in range(len(Output)):
+                            if Output[tab] == 2 and Output[tab]==int(Y_Testing[tab]):
+                                ac_positive1 += 1
+                            if Output[tab] == 3 and Output[tab]==int(Y_Testing[tab]):
+                                ac_positive2 += 1
+                            if Output[tab] == 4 and Output[tab]==int(Y_Testing[tab]):
+                                ac_positive3 += 1
+                            if Output[tab] <=1 and Output[tab]==int(Y_Testing[tab]):
+                                ac_negative += 1
+
+                        recall_positive_len1 = 0
+                        recall_positive_len2 = 0
+                        recall_positive_len3 = 0
+                        recall_negative_len = 0
+                        for each in Y_Testing:
+                            if each == 2:
+                                recall_positive_len1 += 1
+                            if each == 3:
+                                recall_positive_len2 += 1
+                            if each == 4:
+                                recall_positive_len3 += 1
+                            if each == 1:
+                                recall_negative_len += 1
+
+                        precision_positive_len1 = 0
+                        precision_positive_len2 = 0
+                        precision_positive_len3 = 0
+                        precision_negative_len = 0
+                        for each in Output:
+                            if int(each) == 2:
+                                precision_positive_len1 += 1
+                            if int(each) == 3:
+                                precision_positive_len2 += 1
+                            if int(each) == 4:
+                                precision_positive_len3 += 1
+                            if int(each) == 1:
+                                precision_negative_len += 1
+                        #g_mean=np.sqrt(float(ac_positive*ac_negative)/CC*(len(Y_Testing)-CC))
+
+                        #g_mean=np.sqrt(float(ac_positive*ac_negative)/(count_positive*count_negative))
                         #auc=float(get_auc(np.array(Output),Y_Testing,positive_sign))
-                        auc=float(roc_auc_score(Y_Testing, np.array(Output)))
+                        #auc=float(roc_auc_score(Y_Testing, np.array(Output)))
                         #print("TP is..."+str(float(ac_positive)/Output.count(positive_sign)))
                         #print("TN is..."+str(float(ac_negative)/Output.count(negative_sign)))
-                        ACC = float(ac_positive+ac_negative)/len(Output)
+                        #ACC = float(ac_positive+ac_negative)/len(Output)
 
-                        cross_folder_acc_list.append(ACC*100)
-                        cross_folder_g_mean_list.append(g_mean*100)
-                        cross_folder_auc_list.append(auc*100)
+
+                        print("Revall of :"+eachMethod)
+                        print("Anomaly1:")
+                        print(Y_Testing)
+                        print(ac_positive1/(1.0*recall_positive_len1))
+                        print("Anomaly2:")
+                        print(ac_positive2/(1.0*recall_positive_len2))
+                        print("Anomaly3:")
+                        print(ac_positive3/(1.0*recall_positive_len3))
+                        print("Negative:")
+                        print(ac_negative/(1.0*recall_negative_len))
+                        print("---------------------------------")
+                        print("Precesion of :"+eachMethod)
+                        print("Anomaly1:")
+                        print(ac_positive1/(1.0*precision_positive_len1))
+                        print("Anomaly2:")
+                        print(ac_positive2/(1.0*precision_positive_len2))
+                        print("Anomaly3:")
+                        print(ac_positive3/(1.0*precision_positive_len3))
+                        print("Negative:")
+                        print(ac_negative/(1.0*precision_negative_len))
+                        #cross_folder_acc_list.append(ACC*100)
+                        #cross_folder_g_mean_list.append(g_mean*100)
+                        #cross_folder_auc_list.append(auc*100)
 
 
                     for tab1 in range(int(len(cross_folder_auc_list)/cross_folder)):
@@ -406,36 +488,36 @@ def Main(Method_Dict,filename):
                         Temp_SubFeature_G_mean_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)].append(temp)
 
                 deviation_auc=0.0
-                mean_auc=Compute_average_list(Temp_SubFeature_Auc_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)])
+                #mean_auc=Compute_average_list(Temp_SubFeature_Auc_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)])
                 for tab in range(len(Temp_SubFeature_Auc_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)])):
                     temp = Temp_SubFeature_Auc_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)][tab]
-                    deviation_auc=deviation_auc+((temp-mean_auc)*(temp-mean_auc))
-                deviation_auc/=Iterations
+                    #deviation_auc=deviation_auc+((temp-mean_auc)*(temp-mean_auc))
+                #deviation_auc/=Iterations
 
                 Deviation_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)].append(deviation_auc)
 
 
-                Temp_Bagging_Auc_list[eachMethod+"_BN_"+str(bagging_number)].append(Compute_average_list(Temp_SubFeature_Auc_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)]))
-                Temp_Bagging_G_mean_list[eachMethod+"_BN_"+str(bagging_number)].append(Compute_average_list(Temp_SubFeature_G_mean_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)]))
-                Temp_Bagging_ACC_list[eachMethod+"_BN_"+str(bagging_number)].append(Compute_average_list(Temp_SubFeature_ACC_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)]))
+                #Temp_Bagging_Auc_list[eachMethod+"_BN_"+str(bagging_number)].append(Compute_average_list(Temp_SubFeature_Auc_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)]))
+                #Temp_Bagging_G_mean_list[eachMethod+"_BN_"+str(bagging_number)].append(Compute_average_list(Temp_SubFeature_G_mean_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)]))
+                #Temp_Bagging_ACC_list[eachMethod+"_BN_"+str(bagging_number)].append(Compute_average_list(Temp_SubFeature_ACC_list[eachMethod+"_BN_"+str(bagging_number)+"_TF_"+str(Top_K)]))
 
             #The_Top_K=Top_K_List[Temp_Bagging_Auc_list.index(max(Temp_Bagging_Auc_list))]
             #print(Temp_Bagging_Auc_list)
             #print(The_Top_K)
 
-            Auc_list[eachMethod].append(Compute_average_list(Temp_Bagging_Auc_list[eachMethod+"_BN_"+str(bagging_number)]))
-            G_mean_list[eachMethod].append(Compute_average_list(Temp_Bagging_G_mean_list[eachMethod+"_BN_"+str(bagging_number)]))
-            ACC_list[eachMethod].append(Compute_average_list(Temp_Bagging_ACC_list[eachMethod+"_BN_"+str(bagging_number)]))
+            #Auc_list[eachMethod].append(Compute_average_list(Temp_Bagging_Auc_list[eachMethod+"_BN_"+str(bagging_number)]))
+            #G_mean_list[eachMethod].append(Compute_average_list(Temp_Bagging_G_mean_list[eachMethod+"_BN_"+str(bagging_number)]))
+            #ACC_list[eachMethod].append(Compute_average_list(Temp_Bagging_ACC_list[eachMethod+"_BN_"+str(bagging_number)]))
 
         #print(Auc_list)
-        print(ACC_list)
+        #print(ACC_list)
         #print(G_mean_list)
         #print(Temp_Bagging_Auc_list)
         #print(Temp_SubFeature_Auc_list)
 
         #print("auclist.....for......"+str()+"---------MaxAUC:"+str(max(plot_auc_list))+"---------MeanAUC:"+str(sum(plot_auc_list)/float(len(plot_auc_list)))+"-----Deviation:"+str(deviation_auc))
         #print("gmeanlist.....for......"+str()+"---------MaxGmean:"+str(max(plot_g_mean_list))+"---------MeanGmean:"+str(sum(plot_g_mean_list)/float(len(plot_g_mean_list))))
-    with open(os.path.join(out_put_path,filename+"Info_G_mean_List.txt"),"a")as fout:
+    with open(os.path.join(out_put_path,filename+"Info_G_mean_List.txt"),"w")as fout:
         for eachk,eachv in G_mean_list.items():
             fout.write(eachk)
             fout.write(":\t\t")
@@ -461,7 +543,7 @@ def Main(Method_Dict,filename):
             #print(Deviation_list)
             fout.write(str(Deviation_list[eachk]))
             fout.write('\n')
-    with open(os.path.join(out_put_path,filename+"Info_ACC_List.txt"),"a")as fout:
+    with open(os.path.join(out_put_path,filename+"Info_ACC_List.txt"),"w")as fout:
         for eachk,eachv in ACC_list.items():
             fout.write(eachk)
             fout.write(":\t\t")
@@ -489,7 +571,7 @@ def Main(Method_Dict,filename):
             fout.write('\n')
 
 
-    with open(os.path.join(out_put_path,filename+"Info_Auc_List.txt"),"a")as fout:
+    with open(os.path.join(out_put_path,filename+"Info_Auc_List.txt"),"w")as fout:
         for eachk,eachv in Auc_list.items():
             fout.write(eachk)
             fout.write(":\t\t")
@@ -530,15 +612,20 @@ if __name__=='__main__':
         os.makedirs(out_put_path)
     filenamelist=os.listdir(input_data_path)
 
-    #Method_Dict={"DT":1,"LR":4}
-    Method_Dict={"IGBB":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
+    Method_Dict={"IGBB":1}
+    #Method_Dict={"IGBB":1,"DT":2,"SVM":3,"KNN":5,"IGBB0":6}
     for eachfile in filenamelist:
-        if 'HB_Code_Red_I' in eachfile and '.txt' in eachfile:
-            if 'Multi' in eachfile:continue
-            else:
-                pass
+        if 'HB' in eachfile  and 'Multi' in eachfile and '.txt' in eachfile:
+            pass
         else:
             continue
         Main(Method_Dict,eachfile)
 
     print(time.time()-start)
+
+"""
+
+{'KNN': [68.79363135333742], 'SVM': [70.69197795468463], 'IGBB': [72.44335578689528], 'LR': [46.87078995713411], 'IGBB0': [71.96570728720147], 'DT': [71.87997550520514]}
+206.680423021
+
+"""

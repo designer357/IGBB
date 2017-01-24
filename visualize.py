@@ -5,8 +5,10 @@ def set_style():
     plt.style.use(['seaborn-paper'])
     matplotlib.rc("font", family="serif")
 set_style()
-def plot_error_rate(er_train, er_test):
-    global max_n,interval_n
+
+def plotting(filename,method_dict,results,text=''):
+    pass
+def plot_error_rate(max_n,interval_n,er_train, er_test):
     x = [i for i in range(10, max_n, interval_n)]
     plt.plot(x,er_train,'b',label='Ada.Boost')
     plt.plot(x,er_test,'r',label='IGBoosting')
