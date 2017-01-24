@@ -216,7 +216,7 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
             clf = KNeighborsClassifier(5)
             clf.fit(X_train, Y_train)
             result = clf.predict(X_test)
-
+        result = list(map(lambda a:int(a),result))
         voting_list[bagging_number].extend(result)
 
     temp = np.array(voting_list).T
@@ -265,7 +265,7 @@ if __name__=='__main__':
     count_negative= 0
     boosting_i = 5
     top_k = 10
-    bg_max = 10
+    bg_max = 100
     bg_interval = 5
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
@@ -279,7 +279,7 @@ if __name__=='__main__':
     #method_dict={"AdaBoost":1}
 
     for each_file in file_list:
-        if 'HB_Nimda' in each_file and '.txt' in each_file:
+        if '.txt' in each_file:
             if 'Multi' in each_file:continue
             else:
                 pass
@@ -318,4 +318,4 @@ if __name__=='__main__':
         write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
 
 
-    print(time.time()-start)
+    print("The total time is "+str(time.time()-start)+" s.")
