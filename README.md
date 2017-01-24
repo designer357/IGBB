@@ -13,7 +13,7 @@ The final predictions  of bagging are also aggregated through majority vote.
 
 ### Method 
 Information Gain based Bagging Boosting algorithm:<br />
-<img src="https://drive.google.com/uc?export=view&id=0B1-nrGrfxtnjREgwZVlzY3I0TFE"> <br />
+<img src="https://github.com/designer357/IGBB/blob/master/images/igbb.png"> <br />
 
 ### Results
 Using the Hastie (10.2) dataset, we can appreciate a significant reduction in the error rate as we increase the number of iterations. <br />
