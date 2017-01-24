@@ -20,5 +20,10 @@ The original BGP data set is from RIPE Network Coordination Center: [RIPE RIS ra
 Using the Hastie (10.2) dataset, we can appreciate a significant reduction in the error rate as we increase the number of iterations. <br />
 <img src="https://github.com/jaimeps/adaboost-implementation/blob/master/images/error_rate.png" width="500"> <br />
 
+
 ### References
 - Trevor Hastie, Robert Tibshirani, Jerome Friedman - *The Elements of Statistical Learning*
+### License
+This project is licensed under the MIT License.
+
+If had any problem, please send me email: mc.cheng@my.cityu.edu.hk
