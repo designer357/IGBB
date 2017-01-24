@@ -1,3 +1,4 @@
+import os
 def trapezoid_area(x1, x2, y1, y2):
     delta = abs(x2 - x1)
     return delta * 0.5 * (y1 + y2)
