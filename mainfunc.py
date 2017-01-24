@@ -249,41 +249,43 @@ if __name__=='__main__':
     negative_sign = 1
     count_positive= 0
     count_negative= 0
-    boosting_i = 20
+    boosting_i = 2
     top_k = 10
-    bg_max = 100
-    bg_interval = 10
+    bg_max = 10
+    bg_interval = 5
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
     if not os.path.isdir(out_put_path):
         os.makedirs(out_put_path)
-    filenamelist=os.listdir(input_data_path)
+    file_list=os.listdir(input_data_path)
 
     #Method_Dict={"DT":1,"LR":4}
     method_dict={"IGBB":0,"AdaBoost":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
     #method_dict={"AdaBoost":1}
 
-    for eachfile in filenamelist:
-        if 'HB_Nimda' in eachfile and '.txt' in eachfile:
-            if 'Multi' in eachfile:continue
+    for each_file in file_list:
+        if 'HB_Nimda' in each_file and '.txt' in each_file:
+            if 'Multi' in each_file:continue
             else:
                 pass
         else:
             continue
-        print(eachfile + " is processing......")
+        print(each_file + " is processing......")
+        bagging_list = []
         g_mean_list = []
         auc_list = []
         accuracy_list = []
 
-        for bagging in range(1,100,10):
+        for bagging_num in range(1,bg_max,bg_interval):
+            bagging_list.append(bagging_num)
             g_mean_temp = [0 for i in range(len(method_dict))]
             auc_temp = [0 for i in range(len(method_dict))]
             accuracy_temp = [0 for i in range(len(method_dict))]
 
             for eachMethod,eachMethodLabel in method_dict.items():
                 print(eachMethod + " is running...")
-                g_mean,auc,accuracy = MainFunc(eachMethodLabel,bagging_size, input_data_path,eachfile)
+                g_mean,auc,accuracy = MainFunc(eachMethodLabel,bagging_num, input_data_path,each_file)
                 g_mean_temp[eachMethodLabel] = g_mean
                 auc_temp[eachMethodLabel] = auc
                 accuracy_temp[eachMethodLabel] = accuracy
@@ -291,9 +293,9 @@ if __name__=='__main__':
             auc_list.append(auc_temp)
             accuracy_list.append(accuracy_temp)
 
-        visualize.plotting(eachfile,method_dict,g_mean_list,text=str(boosting_i)+'%'+str(top_k))
-        visualize.plotting(eachfile,method_dict,g_mean_list,text=str(boosting_i)+'%'+str(top_k))
-        visualize.plotting(eachfile,method_dict,g_mean_list,text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting(each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting(each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting(each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
 
 
     print(time.time()-start)
