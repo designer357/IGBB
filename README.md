@@ -17,7 +17,7 @@ Information Gain based Bagging Boosting algorithm:<br />
 ### Data 
 The original BGP data set is from RIPE Network Coordination Center: [RIPE RIS raw data] (https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/ris-raw-data)  
 ### Results
-Using the Hastie (10.2) dataset, we can appreciate a significant reduction in the error rate as we increase the number of iterations. <br />
+Using the Nimda dataset, we can appreciate a significant reduction in the error rate as we increase the number of iterations. <br />
 <img src="https://github.com/jaimeps/adaboost-implementation/blob/master/images/error_rate.png" width="500"> <br />
 
 
