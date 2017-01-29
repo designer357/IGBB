@@ -71,11 +71,11 @@ def jointProbs(x, y):
             else:
                 probs[key] = 0
 
-    for (key, val) in probs.iteritems():
+    for (key, val) in probs.items():
         probs[key] = probs[key] / float(den)
 
     totalSum = 0
-    for key, val in probs.iteritems():
+    for (key, val) in probs.items():
         xVal, yVal = [int(i) for i in key.split(',')]
 
         indX = valsX.index(xVal)
@@ -135,7 +135,7 @@ def get_error_rate(pred, Y):
     return sum(pred != Y) / float(len(Y))
 
 def print_error_rate(err):
-    print 'Error rate: Training: %.4f - Test: %.4f' % err
+    print('Error rate: Training: %.4f - Test: %.4f' % err)
 
 def generic_clf(clf, trainX,trainY, testX, testY):
     clf.fit(trainX, trainY)
@@ -189,7 +189,7 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
     output=[]
     for bagging_number in range(bagging_size):
         #print("The Bagging Number is " + str(bagging_number+1) + "...")
-        X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 1)
+        X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
         if method_label == 0:
             result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
         elif method_label==1:
@@ -240,8 +240,8 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
     accuracy = float(ac_positive+ac_negative)/len(output)
 
     return g_mean,auc,accuracy
+
 def write_to_disk(flag,each_file,method_dict,bagging_list,results,text):
-    print(results)
     output_folder = os.path.join(os.getcwd(), 'output')
     if not os.path.isdir(output_folder):
         os.makedirs(output_folder)
@@ -263,10 +263,10 @@ if __name__=='__main__':
     negative_sign = 1
     count_positive= 0
     count_negative= 0
-    boosting_i = 5
+    boosting_i = 100
     top_k = 10
-    bg_max = 100
-    bg_interval = 5
+    bg_max = 201
+    bg_interval = 10
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
@@ -277,7 +277,7 @@ if __name__=='__main__':
     #Method_Dict={"DT":1,"LR":4}
     method_dict={"IGBB":0,"AdaBoost":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
     #method_dict={"AdaBoost":1}
-
+    print("The top k is ..................."+str(top_k))
     for each_file in file_list:
         if '.txt' in each_file:
             if 'Multi' in each_file:continue
@@ -291,7 +291,7 @@ if __name__=='__main__':
         auc_list = []
         accuracy_list = []
 
-        for bagging_num in range(1,bg_max,bg_interval):
+        for bagging_num in range(10,bg_max,bg_interval):
             print("The bagging size is .................."+str(bagging_num))
             bagging_list.append(bagging_num)
             g_mean_temp = [0 for i in range(len(method_dict))]
