@@ -1,6 +1,6 @@
 import os
 import numpy as np
-import random
+import random as rd
 def loadData(input_data_path,filename):
     global positive_sign,negative_sign
     with open(os.path.join(input_data_path,filename)) as fin:
@@ -15,9 +15,9 @@ def loadData(input_data_path,filename):
                 else:
                     val[-1] = '-1.0'
                 try:
-                    val=map(lambda a:float(a),val)
+                    val=list(map(lambda a:float(a),val))
                 except:
-                    val=map(lambda a:str(a),val)
+                    val=list(map(lambda a:str(a),val))
 
                 val[-1]=int(val[-1])
                 data.append(val)
@@ -51,16 +51,15 @@ def cross_tab(data,cross_folder,tab_cv):
             else:
                 n_index_train.append(tab_negative)
 
-        p_train = np.array(posi_data)[p_index_train]
-        p_test = np.array(posi_data)[p_index_test]
-        n_train = np.array(nega_data)[n_index_train]
-        n_test = np.array(nega_data)[n_index_test]
+        p_train = posi_data[p_index_train]
+        p_test = posi_data[p_index_test]
+        n_test = nega_data[n_index_test]
         #print(nega_data.shape)
         N = len(n_test)
         n_test2 = n_test[N - len(p_test) - 1:N - 1, :]
 
         test_data = np.append(p_test, n_test2, axis=0)
-        train_data = np.concatenate((random.sample(n_train, len(p_train)), p_train))
+        train_data = np.concatenate((nega_data[np.random.choice(n_index_train, len(p_train),replace=True)], p_train))
 
         return train_data[:,:-1],train_data[:,-1],test_data[:,:-1],test_data[:,-1]
 """
