@@ -1,12 +1,13 @@
 import matplotlib.pyplot as plt
 import matplotlib
 import os
+import seaborn
 """==================== Visualize ======================"""
 def set_style():
     plt.style.use(['seaborn-paper'])
     matplotlib.rc("font", family="serif")
-set_style()
-
+#set_style()
+seaborn.set_context('paper')
 def plotting(flag,filename,method_dict,bagging_list,results,text=''):
     color_list = ['r','y', 'g','#FF8C00','#FD8CD0','c', 'b','m']
 
