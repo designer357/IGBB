@@ -263,7 +263,7 @@ if __name__=='__main__':
     negative_sign = 1
     count_positive= 0
     count_negative= 0
-    boosting_i = 100
+    boosting_i = 50
     top_k = 10
     bg_max = 201
     bg_interval = 10
@@ -279,7 +279,7 @@ if __name__=='__main__':
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
     for each_file in file_list:
-        if '.txt' in each_file:
+        if '.txt' in each_file and 'IB' in each_file:
             if 'Multi' in each_file:continue
             else:
                 pass
