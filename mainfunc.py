@@ -16,7 +16,6 @@ from sklearn.metrics import roc_auc_score
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm,preprocessing,linear_model
-from sklearn.ensemble import AdaBoostClassifier,GradientBoostingClassifier,RandomForestClassifier
 
 def entropyVector(x):
     #Computes the entropy of a vector of discrete values
@@ -193,10 +192,7 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
         if method_label == 0:
             result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
         elif method_label==1:
-            #clf = GradientBoostingClassifier(loss='deviance',n_estimators=300, learning_rate=0.1,max_depth=2)
-            clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2, random_state=1))
-            clf.fit(X_train, Y_train)
-            result = clf.predict(X_test)
+            result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
         elif method_label==2:
             clf=tree.DecisionTreeClassifier(max_depth=2, random_state=1)
             clf.fit(X_train, Y_train)
@@ -263,8 +259,8 @@ if __name__=='__main__':
     negative_sign = 1
     count_positive= 0
     count_negative= 0
-    boosting_i = 50
-    top_k = 10
+    boosting_i = 100
+    top_k = 25
     bg_max = 201
     bg_interval = 10
     input_data_path = os.path.join(os.getcwd(),"BGPData")
