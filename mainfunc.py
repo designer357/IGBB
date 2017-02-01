@@ -265,8 +265,6 @@ if __name__=='__main__':
     bg_interval = 10
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
-
-
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
     if not os.path.isdir(out_put_path):
         os.makedirs(out_put_path)
