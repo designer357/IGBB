@@ -264,9 +264,9 @@ if __name__=='__main__':
     count_positive= 0
     count_negative= 0
     boosting_i = 50
-    top_k = 25
+    top_k = 15
     bg_max = 101
-    bg_interval = 20
+    bg_interval = 200
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
