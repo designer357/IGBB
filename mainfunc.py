@@ -151,7 +151,7 @@ def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True)
 
     for i in range(M):
         # fit a classifier with the specific weights
-        if i > 0 and using_weights == True:
+        if i+1 == M and using_weights == True:
             top_features = top_feat(trainX,trainY,w,top_k)
             trainX = trainX[:,top_features]
             testX = testX[:,top_features]
@@ -264,7 +264,7 @@ if __name__=='__main__':
     count_positive= 0
     count_negative= 0
     boosting_i = 50
-    top_k = 15
+    top_k = 30
     bg_max = 101
     bg_interval = 200
     input_data_path = os.path.join(os.getcwd(),"BGPData")
@@ -291,7 +291,7 @@ if __name__=='__main__':
         auc_list = []
         accuracy_list = []
 
-        for bagging_num in range(30,bg_max,bg_interval):
+        for bagging_num in range(50,bg_max,bg_interval):
             print("The bagging size is .................."+str(bagging_num))
             bagging_list.append(bagging_num)
             g_mean_temp = [0 for i in range(len(method_dict))]
