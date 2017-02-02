@@ -59,7 +59,7 @@ def cross_tab(data,cross_folder,tab_cv):
         n_test2 = n_test[N - len(p_test) - 1:N - 1, :]
 
         test_data = np.append(p_test, n_test2, axis=0)
-        train_data = np.concatenate((nega_data[np.random.choice(n_index_train, len(p_train),replace=True)], p_train))
+        train_data = np.concatenate((nega_data[np.random.choice(n_index_train, len(p_train),replace=False)], p_train))
 
         return train_data[:,:-1],train_data[:,-1],test_data[:,:-1],test_data[:,-1]
 """
