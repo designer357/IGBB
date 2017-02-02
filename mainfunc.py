@@ -162,6 +162,10 @@ def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True)
         pred_test_i = clf.predict(testX)
         # indicator function
         miss = [int(x) for x in (pred_train_i != trainY)]
+        #print("The length of miss is "+str(len(miss)))
+        #print(miss)
+        #print("The length of pred_train_i"+str(len(pred_train_i)))
+        #print("The length of trainY is "+str(len(trainY)))
         # equivalent with 1/-1 to update weights
         miss2 = [x if x == 1 else -1 for x in miss]
         # the error
@@ -259,9 +263,9 @@ if __name__=='__main__':
     negative_sign = 1
     count_positive= 0
     count_negative= 0
-    boosting_i = 100
-    top_k = 30
-    bg_max = 201
+    boosting_i = 20
+    top_k = 32
+    bg_max = 101
     bg_interval = 10
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
@@ -275,7 +279,7 @@ if __name__=='__main__':
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
     for each_file in file_list:
-        if '.txt' in each_file and 'IB' in each_file:
+        if '.txt' in each_file and 'HB_Code' in each_file:
             if 'Multi' in each_file:continue
             else:
                 pass
