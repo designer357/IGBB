@@ -194,11 +194,11 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
         #print("The Bagging Number is " + str(bagging_number+1) + "...")
         X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
         if method_label == 0:
-            result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
+            result = igboost_clf(DecisionTreeClassifier(max_depth=3, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
         elif method_label==1:
-            result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
+            result = igboost_clf(DecisionTreeClassifier(max_depth=3, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
         elif method_label==2:
-            clf=tree.DecisionTreeClassifier(max_depth=2, random_state=1)
+            clf=tree.DecisionTreeClassifier(max_depth=1, random_state=1)
             clf.fit(X_train, Y_train)
             result = clf.predict(X_test)
         elif method_label==3:
@@ -263,10 +263,10 @@ if __name__=='__main__':
     negative_sign = 1
     count_positive= 0
     count_negative= 0
-    boosting_i = 20
-    top_k = 32
+    boosting_i = 50
+    top_k = 25
     bg_max = 101
-    bg_interval = 10
+    bg_interval = 20
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
@@ -279,7 +279,7 @@ if __name__=='__main__':
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
     for each_file in file_list:
-        if '.txt' in each_file and 'HB_Code' in each_file:
+        if '.txt' in each_file and 'IB_Code' in each_file:
             if 'Multi' in each_file:continue
             else:
                 pass
@@ -291,7 +291,7 @@ if __name__=='__main__':
         auc_list = []
         accuracy_list = []
 
-        for bagging_num in range(10,bg_max,bg_interval):
+        for bagging_num in range(30,bg_max,bg_interval):
             print("The bagging size is .................."+str(bagging_num))
             bagging_list.append(bagging_num)
             g_mean_temp = [0 for i in range(len(method_dict))]
