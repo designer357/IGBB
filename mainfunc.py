@@ -152,9 +152,10 @@ def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True)
     for i in range(M):
         # fit a classifier with the specific weights
         if i >= 1 and using_weights == True:
-            top_features = top_feat(trainX,trainY,w,top_k)
-            trainX = trainX[:,top_features]
-            testX = testX[:,top_features]
+            pass
+            #top_features = top_feat(trainX,trainY,w,top_k)
+            #trainX = trainX[:,top_features]
+            #testX = testX[:,top_features]
         else:
             pass
         clf.fit(trainX, trainY, sample_weight=w)
@@ -184,6 +185,7 @@ def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True)
     # return error rate in train and test set
     return pred_test
     #return get_error_rate(pred_train, trainY), get_error_rate(pred_test, testY)
+
 def compute_metrics(predict,true):
     ac_positive = 0
     ac_negative = 0
@@ -198,48 +200,37 @@ def compute_metrics(predict,true):
     auc=float(roc_auc_score(true, np.array(predict)))
     accuracy = float(ac_positive+ac_negative)/len(predict)
     return g_mean,auc,accuracy
-def MainFunc(method_dict):
+
+def MainFunc(method_label,X_train,Y_train,X_test,Y_test):
     global positive_sign,negative_sign,boosting_i, top_k
-    voting_list = [[] for i in range(bagging_size)]
-    output=[]
-    for eachMethod, eachMethodLabel in method_dict.items():
 
-        #print("The Bagging Number is " + str(bagging_number+1) + "...")
-        X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
-        if eachMethodLabel == 0:
-            result = igboost_clf(DecisionTreeClassifier(max_depth=3, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
-        elif eachMethodLabel==1:
-            result = igboost_clf(DecisionTreeClassifier(max_depth=3, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
-        elif eachMethodLabel==2:
-            clf=tree.DecisionTreeClassifier(max_depth=3, random_state=1)
-            clf.fit(X_train, Y_train)
-            result = clf.predict(X_test)
-        elif eachMethodLabel==3:
-            scaler = preprocessing.StandardScaler()
-            X_train = scaler.fit_transform(X_train)
-            X_test = scaler.fit_transform(X_test)
-            clf = svm.SVC(kernel="rbf", gamma=0.001)
-            clf.fit(X_train, Y_train)
-            result = clf.predict(X_test)
-        elif eachMethodLabel==4:
-            clf = linear_model.LogisticRegression()
-            clf.fit(X_train, Y_train)
-            result = clf.predict(X_test)
-        elif eachMethodLabel==5:
-            clf = KNeighborsClassifier(5)
-            clf.fit(X_train, Y_train)
-            result = clf.predict(X_test)
-        result = list(map(lambda a:int(a),result))
+    if method_label == 0:
+        result = igboost_clf(DecisionTreeClassifier(max_depth=5, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
+    elif method_label == 1:
+        result = igboost_clf(DecisionTreeClassifier(max_depth=5, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
+    elif method_label == 2:
+        clf=tree.DecisionTreeClassifier(max_depth=5, random_state=1)
+        clf.fit(X_train, Y_train)
+        result = clf.predict(X_test)
+    elif method_label == 3:
+        scaler = preprocessing.StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.fit_transform(X_test)
+        clf = svm.SVC(kernel="rbf", gamma=0.001)
+        clf.fit(X_train, Y_train)
+        result = clf.predict(X_test)
+    elif method_label == 4:
+        clf = linear_model.LogisticRegression()
+        clf.fit(X_train, Y_train)
+        result = clf.predict(X_test)
+    elif method_label == 5:
+        clf = KNeighborsClassifier(5)
+        clf.fit(X_train, Y_train)
+        result = clf.predict(X_test)
 
-        voting_list[bagging_number].extend(result)
+    result = list(map(lambda a:int(a),result))
 
-    temp = np.array(voting_list).T
-    for tab_i in range(len(temp)):
-        if list(temp[tab_i]).count(positive_sign)>list(temp[tab_i]).count(negative_sign):
-            output.append(positive_sign)
-        else:
-            output.append(negative_sign)
-    return output,Y_test
+    return result
 
 def write_to_disk(flag,each_file,method_dict,bagging_list,results,text):
     output_folder = os.path.join(os.getcwd(), 'output')
@@ -253,9 +244,6 @@ def write_to_disk(flag,each_file,method_dict,bagging_list,results,text):
                 line1 = line1 + ':' + str(results[tab_i][tab_j])
             line1 = line1 + '\n'
             fout.write(line1)
-
-
-
 
 if __name__=='__main__':
     global positive_sign,negative_sign,boosting_i, top_k
@@ -300,14 +288,19 @@ if __name__=='__main__':
 
             data = loaddata.loadData(input_data_path, each_file)
             X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
-
-            for bagging_number in range(bagging_size):
+            for eachMethod, eachMethodLabel in method_dict.items():
+                output = []
                 voting_list = [[] for i in range(bagging_size)]
-
-                # print("The Bagging Number is " + str(bagging_number+1) + "...")
-
-            for eachMethod,eachMethodLabel in method_dict.items():
-                g_mean,auc,accuracy = MainFunc(method_dict, bagging_size)
+                for bagging_number in range(bagging_size):
+                    result = MainFunc(eachMethodLabel, X_train,Y_train,X_test,Y_test)
+                    voting_list[bagging_number].extend(result)
+                temp = np.array(voting_list).T
+                for tab_i in range(len(temp)):
+                    if list(temp[tab_i]).count(positive_sign) > list(temp[tab_i]).count(negative_sign):
+                        output.append(positive_sign)
+                    else:
+                        output.append(negative_sign)
+                g_mean,auc,accuracy = compute_metrics(output, Y_test)
                 g_mean_temp[eachMethodLabel] = g_mean
                 auc_temp[eachMethodLabel] = auc
                 accuracy_temp[eachMethodLabel] = accuracy
@@ -323,6 +316,5 @@ if __name__=='__main__':
 
         visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
         write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
-
 
     print("The total time is "+str(time.time()-start)+" s.")
