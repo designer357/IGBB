@@ -185,12 +185,12 @@ def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True)
     return pred_test
     #return get_error_rate(pred_train, trainY), get_error_rate(pred_test, testY)
 
-def MainFunc(method_label,bagging_size,input_data_path,filename):
+def MainFunc(method_dict):
     global positive_sign,negative_sign,boosting_i, top_k
-    data = loaddata.loadData(input_data_path, filename)
     voting_list = [[] for i in range(bagging_size)]
     output=[]
-    for bagging_number in range(bagging_size):
+    for eachMethod, eachMethodLabel in method_dict.items():
+
         #print("The Bagging Number is " + str(bagging_number+1) + "...")
         X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
         if method_label == 0:
@@ -198,7 +198,7 @@ def MainFunc(method_label,bagging_size,input_data_path,filename):
         elif method_label==1:
             result = igboost_clf(DecisionTreeClassifier(max_depth=3, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
         elif method_label==2:
-            clf=tree.DecisionTreeClassifier(max_depth=1, random_state=1)
+            clf=tree.DecisionTreeClassifier(max_depth=3, random_state=1)
             clf.fit(X_train, Y_train)
             result = clf.predict(X_test)
         elif method_label==3:
@@ -264,7 +264,7 @@ if __name__=='__main__':
     count_positive= 0
     count_negative= 0
     boosting_i = 100
-    top_k = 30
+    top_k = 35
     bg_max = 101
     bg_interval = 200
     input_data_path = os.path.join(os.getcwd(),"BGPData")
@@ -291,16 +291,21 @@ if __name__=='__main__':
         auc_list = []
         accuracy_list = []
 
-        for bagging_num in range(1,bg_max,bg_interval):
+        for bagging_size in range(1,bg_max,bg_interval):
             print("The bagging size is .................."+str(bagging_num))
-            bagging_list.append(bagging_num)
+            bagging_list.append(bagging_size)
             g_mean_temp = [0 for i in range(len(method_dict))]
             auc_temp = [0 for i in range(len(method_dict))]
             accuracy_temp = [0 for i in range(len(method_dict))]
 
+            data = loaddata.loadData(input_data_path, each_file)
+
+            for bagging_number in range(bagging_size):
+                # print("The Bagging Number is " + str(bagging_number+1) + "...")
+                X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
+
             for eachMethod,eachMethodLabel in method_dict.items():
-                print(eachMethod + " is running...")
-                g_mean,auc,accuracy = MainFunc(eachMethodLabel,bagging_num, input_data_path,each_file)
+                g_mean,auc,accuracy = MainFunc(method_dict, input_data_path,each_file)
                 g_mean_temp[eachMethodLabel] = g_mean
                 auc_temp[eachMethodLabel] = auc
                 accuracy_temp[eachMethodLabel] = accuracy
