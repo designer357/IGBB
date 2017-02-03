@@ -28,7 +28,7 @@ def cross_tab(data,cross_folder,tab_cv):
     #print("Positive is "+str(len(posi_data)))
     #print("Negative is "+str(len(nega_data)))
 
-    #print("IR is :"+str(float(len(nega_data))/len(posi_data)))
+    print("IR is :"+str(float(len(nega_data))/len(posi_data)))
     p_indexes=[i for i in range(len(posi_data))]
     n_indexes=[i for i in range(len(nega_data))]
     for tab_cross in range(cross_folder):

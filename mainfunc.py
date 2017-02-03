@@ -279,7 +279,7 @@ if __name__=='__main__':
         auc_list = []
         accuracy_list = []
 
-        for bagging_size in range(1,bg_max,bg_interval):
+        for bagging_size in range(20,bg_max,bg_interval):
             print("The bagging size is .................."+str(bagging_size))
             bagging_list.append(bagging_size)
             g_mean_temp = [0 for i in range(len(method_dict))]
