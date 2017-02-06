@@ -14,6 +14,7 @@ from sklearn.svm import LinearSVC
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import roc_auc_score
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm,preprocessing,linear_model
 
@@ -126,7 +127,7 @@ def top_feat(data,label,w,k):
     top_list=[]
     for tab in range(len(data[0])):
         top_list.append(informationGain(new_data[:, tab], label))
-    result=(sorted(enumerate(top_list),key=lambda a:a[1],reverse=True))
+    result=(sorted(enumerate(top_list),key=lambda a:a[1],reverse=False))
     label_=[e[0] for e in result]
     return label_[:k]
 
@@ -206,8 +207,11 @@ def MainFunc(method_label,X_train,Y_train,X_test,Y_test):
 
     if method_label == 0:
         result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
-    elif method_label == 1:
-        result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
+    elif method_label == 0:
+        clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),n_estimators=100,learning_rate=1)
+        clf.fit(X_train, Y_train)
+        result = clf.predict(X_test)
+        #result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
     elif method_label == 2:
         clf=tree.DecisionTreeClassifier(max_depth=2, random_state=1)
         clf.fit(X_train, Y_train)
@@ -232,6 +236,7 @@ def MainFunc(method_label,X_train,Y_train,X_test,Y_test):
 
     return result
 
+
 def write_to_disk(flag,each_file,method_dict,bagging_list,results,text):
     output_folder = os.path.join(os.getcwd(), 'output')
     if not os.path.isdir(output_folder):
@@ -249,7 +254,7 @@ if __name__=='__main__':
     global positive_sign,negative_sign,boosting_i, top_k
     positive_sign = -1
     negative_sign = 1
-    boosting_i = 60
+    boosting_i = 100
     top_k = 25
     bg_max = 101
     bg_interval = 20
@@ -260,8 +265,8 @@ if __name__=='__main__':
         os.makedirs(out_put_path)
     file_list=os.listdir(input_data_path)
 
-    #Method_Dict={"DT":1,"LR":4}
-    method_dict={"IGBB":0,"AdaBoost":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
+    method_dict={"AdaBoost":0}
+    #method_dict={"IGBB":0,"AdaBoost":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
     for each_file in file_list:
@@ -305,12 +310,14 @@ if __name__=='__main__':
             g_mean_list.append(g_mean_temp)
             auc_list.append(auc_temp)
             accuracy_list.append(accuracy_temp)
+        print(g_mean_list)
+        print(auc_list)
 
-        visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
-        write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
+        #visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
+        #write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
 
-        visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
-        write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
+        #visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
+        #write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
 
         #visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
         #write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
