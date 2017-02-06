@@ -29,7 +29,7 @@ def entropyVector(x):
 
 def mutualInformation(jointProb):
     '''
-    Calculates the mutual information from the output of
+    Calculates the mutual information from the output0 of
     the jointProbs function
     '''
 def jointProbs(x, y):
@@ -151,11 +151,11 @@ def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True)
 
     for i in range(M):
         # fit a classifier with the specific weights
-        if i >= 1 and using_weights == True:
-            pass
-            #top_features = top_feat(trainX,trainY,w,top_k)
-            #trainX = trainX[:,top_features]
-            #testX = testX[:,top_features]
+        if using_weights == True:
+            #pass
+            top_features = top_feat(trainX,trainY,w,top_k)
+            trainX = trainX[:,top_features]
+            testX = testX[:,top_features]
         else:
             pass
         clf.fit(trainX, trainY, sample_weight=w)
@@ -205,11 +205,11 @@ def MainFunc(method_label,X_train,Y_train,X_test,Y_test):
     global positive_sign,negative_sign,boosting_i, top_k
 
     if method_label == 0:
-        result = igboost_clf(DecisionTreeClassifier(max_depth=5, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
+        result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
     elif method_label == 1:
-        result = igboost_clf(DecisionTreeClassifier(max_depth=5, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
+        result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
     elif method_label == 2:
-        clf=tree.DecisionTreeClassifier(max_depth=5, random_state=1)
+        clf=tree.DecisionTreeClassifier(max_depth=2, random_state=1)
         clf.fit(X_train, Y_train)
         result = clf.predict(X_test)
     elif method_label == 3:
@@ -249,12 +249,10 @@ if __name__=='__main__':
     global positive_sign,negative_sign,boosting_i, top_k
     positive_sign = -1
     negative_sign = 1
-    count_positive= 0
-    count_negative= 0
-    boosting_i = 100
-    top_k = 35
+    boosting_i = 60
+    top_k = 25
     bg_max = 101
-    bg_interval = 200
+    bg_interval = 20
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
@@ -267,7 +265,7 @@ if __name__=='__main__':
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
     for each_file in file_list:
-        if '.txt' in each_file and 'HB_Code' in each_file:
+        if '.txt' in each_file and 'IB' in each_file:
             if 'Multi' in each_file:continue
             else:
                 pass
@@ -279,7 +277,7 @@ if __name__=='__main__':
         auc_list = []
         accuracy_list = []
 
-        for bagging_size in range(20,bg_max,bg_interval):
+        for bagging_size in range(10,bg_max,bg_interval):
             print("The bagging size is .................."+str(bagging_size))
             bagging_list.append(bagging_size)
             g_mean_temp = [0 for i in range(len(method_dict))]
@@ -314,7 +312,7 @@ if __name__=='__main__':
         visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
         write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
 
-        visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
-        write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
+        #visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
+        #write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
 
     print("The total time is "+str(time.time()-start)+" s.")

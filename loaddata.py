@@ -51,6 +51,7 @@ def cross_tab(data,cross_folder,tab_cv):
             else:
                 n_index_train.append(tab_negative)
 
+
         p_train = posi_data[p_index_train]
         p_test = posi_data[p_index_test]
         n_test = nega_data[n_index_test]
