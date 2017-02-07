@@ -127,7 +127,7 @@ def top_feat(data,label,w,k):
     top_list=[]
     for tab in range(len(data[0])):
         top_list.append(informationGain(new_data[:, tab], label))
-    result=(sorted(enumerate(top_list),key=lambda a:a[1],reverse=False))
+    result=(sorted(enumerate(top_list),key=lambda a:a[1],reverse=True))
     label_=[e[0] for e in result]
     return label_[:k]
 
@@ -207,7 +207,7 @@ def MainFunc(method_label,X_train,Y_train,X_test,Y_test):
 
     if method_label == 0:
         result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
-    elif method_label == 0:
+    elif method_label == 1:
         clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),n_estimators=100,learning_rate=1)
         clf.fit(X_train, Y_train)
         result = clf.predict(X_test)
@@ -265,7 +265,7 @@ if __name__=='__main__':
         os.makedirs(out_put_path)
     file_list=os.listdir(input_data_path)
 
-    method_dict={"AdaBoost":0}
+    method_dict={"IGBB":0}
     #method_dict={"IGBB":0,"AdaBoost":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
