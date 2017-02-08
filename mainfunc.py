@@ -255,7 +255,7 @@ if __name__=='__main__':
     positive_sign = -1
     negative_sign = 1
     boosting_i = 100
-    top_k = 25
+    top_k = 10
     bg_max = 101
     bg_interval = 20
     input_data_path = os.path.join(os.getcwd(),"BGPData")
@@ -265,7 +265,7 @@ if __name__=='__main__':
         os.makedirs(out_put_path)
     file_list=os.listdir(input_data_path)
 
-    method_dict={"IGBB":0}
+    method_dict={"AdaBoost":0}
     #method_dict={"IGBB":0,"AdaBoost":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
