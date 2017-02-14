@@ -14,7 +14,7 @@ from sklearn.svm import LinearSVC
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import roc_auc_score
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import AdaBoostClassifier,GradientBoostingClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm,preprocessing,linear_model
 
@@ -181,6 +181,11 @@ def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True)
                                           [x * alpha_m for x in pred_train_i])]
         pred_test = [sum(x) for x in zip(pred_test,
                                          [x * alpha_m for x in pred_test_i])]
+        #print("-----------------" + str(err_m) + "-" + str(i))
+        #if err_m < 0.01:
+            #print("AAA" + str(err_m)+"AAA"+str(i))
+            #break
+
 
     pred_train, pred_test = np.sign(pred_train), np.sign(pred_test)
     # return error rate in train and test set
@@ -205,13 +210,13 @@ def compute_metrics(predict,true):
 def MainFunc(method_label,X_train,Y_train,X_test,Y_test):
     global positive_sign,negative_sign,boosting_i, top_k
 
-    if method_label == 0:
+    if method_label == 110:
         result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
-    elif method_label == 1:
-        clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),n_estimators=100,learning_rate=1)
-        clf.fit(X_train, Y_train)
-        result = clf.predict(X_test)
-        #result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
+    elif method_label == 0:
+        #clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2,random_state=1),n_estimators=50)
+        #clf.fit(X_train, Y_train)
+        #result = clf.predict(X_test)
+        result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,True)
     elif method_label == 2:
         clf=tree.DecisionTreeClassifier(max_depth=2, random_state=1)
         clf.fit(X_train, Y_train)
@@ -254,10 +259,10 @@ if __name__=='__main__':
     global positive_sign,negative_sign,boosting_i, top_k
     positive_sign = -1
     negative_sign = 1
-    boosting_i = 100
-    top_k = 10
+    boosting_i = 50
+    top_k = 12
     bg_max = 101
-    bg_interval = 20
+    bg_interval = 200
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
