@@ -60,9 +60,9 @@ def cross_tab(data,cross_folder,tab_cv):
         N = len(n_test)
         n_test2 = n_test[N - len(p_test) - 1:N - 1, :]
 
-        #test_data = np.append(p_test, n_test2, axis=0)
         test_data = np.append(p_test, n_test, axis=0)
 
+        #Random undersampling without replacement
         train_data = np.concatenate((nega_data[np.random.choice(n_index_train, len(p_train),replace=False)], p_train))
 
         return train_data[:,:-1],train_data[:,-1],test_data[:,:-1],test_data[:,-1]

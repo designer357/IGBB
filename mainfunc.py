@@ -154,9 +154,10 @@ def igboost_clf(clf, M, top_k, trainX, trainY, testX, testY, using_weights=True)
         # fit a classifier with the specific weights
         if using_weights == True:
             #pass
-            top_features = top_feat(trainX,trainY,w,top_k)
-            trainX = trainX[:,top_features]
-            testX = testX[:,top_features]
+            if i+1 == M:
+                top_features = top_feat(trainX,trainY,w,top_k)
+                trainX = trainX[:,top_features]
+                testX = testX[:,top_features]
         else:
             pass
         clf.fit(trainX, trainY, sample_weight=w)
@@ -210,29 +211,29 @@ def compute_metrics(predict,true):
 def MainFunc(method_label,X_train,Y_train,X_test,Y_test):
     global positive_sign,negative_sign,boosting_i, top_k
 
-    if method_label == 110:
-        result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test)
-    elif method_label == 0:
+    if method_label == 0:
+        result = igboost_clf(DecisionTreeClassifier(max_depth=2), boosting_i,top_k, X_train, Y_train, X_test, Y_test, True)
+    elif method_label == 111:
         #clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2,random_state=1),n_estimators=50)
         #clf.fit(X_train, Y_train)
         #result = clf.predict(X_test)
-        result = igboost_clf(DecisionTreeClassifier(max_depth=2, random_state=1), boosting_i,top_k, X_train, Y_train, X_test, Y_test,True)
-    elif method_label == 2:
-        clf=tree.DecisionTreeClassifier(max_depth=2, random_state=1)
+        result = igboost_clf(DecisionTreeClassifier(max_depth=2), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
+    elif method_label == 1:
+        clf=tree.DecisionTreeClassifier(max_depth=2)
         clf.fit(X_train, Y_train)
         result = clf.predict(X_test)
-    elif method_label == 3:
+    elif method_label == 2:
         scaler = preprocessing.StandardScaler()
         X_train = scaler.fit_transform(X_train)
         X_test = scaler.fit_transform(X_test)
         clf = svm.SVC(kernel="rbf", gamma=0.001)
         clf.fit(X_train, Y_train)
         result = clf.predict(X_test)
-    elif method_label == 4:
+    elif method_label == 3:
         clf = linear_model.LogisticRegression()
         clf.fit(X_train, Y_train)
         result = clf.predict(X_test)
-    elif method_label == 5:
+    elif method_label == 4:
         clf = KNeighborsClassifier(5)
         clf.fit(X_train, Y_train)
         result = clf.predict(X_test)
@@ -259,10 +260,10 @@ if __name__=='__main__':
     global positive_sign,negative_sign,boosting_i, top_k
     positive_sign = -1
     negative_sign = 1
-    boosting_i = 50
+    boosting_i = 30
     top_k = 12
     bg_max = 101
-    bg_interval = 200
+    bg_interval = 20
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
@@ -270,8 +271,8 @@ if __name__=='__main__':
         os.makedirs(out_put_path)
     file_list=os.listdir(input_data_path)
 
-    method_dict={"AdaBoost":0}
-    #method_dict={"IGBB":0,"AdaBoost":1,"DT":2,"SVM":3,"LR":4,"KNN":5}
+    #method_dict={"IGBB":0,"AdaBoost":1}
+    method_dict={"IGBB":0,"DT":1,"SVM":2,"LR":3,"KNN":4}
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
     for each_file in file_list:
@@ -296,6 +297,7 @@ if __name__=='__main__':
 
             data = loaddata.loadData(input_data_path, each_file)
             X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
+
             for eachMethod, eachMethodLabel in method_dict.items():
                 output = []
                 voting_list = [[] for i in range(bagging_size)]
@@ -318,11 +320,11 @@ if __name__=='__main__':
         print(g_mean_list)
         print(auc_list)
 
-        #visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
-        #write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
+        write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
 
-        #visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
-        #write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
+        visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
+        write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
 
         #visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
         #write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
