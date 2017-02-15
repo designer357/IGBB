@@ -17,7 +17,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import AdaBoostClassifier,GradientBoostingClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm,preprocessing,linear_model
-
+import matplotlib.pyplot as plt
 def entropyVector(x):
     #Computes the entropy of a vector of discrete values
     vals = np.bincount(x)
@@ -262,8 +262,8 @@ if __name__=='__main__':
     negative_sign = 1
     boosting_i = 30
     top_k = 12
-    bg_max = 101
-    bg_interval = 20
+    bg_max = 111
+    bg_interval =  10
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
@@ -272,11 +272,13 @@ if __name__=='__main__':
     file_list=os.listdir(input_data_path)
 
     #method_dict={"IGBB":0,"AdaBoost":1}
-    method_dict={"IGBB":0,"DT":1,"SVM":2,"LR":3,"KNN":4}
+    method_dict={"IGBB":0,"BAG-DT":1,"BAG-SVM":2,"BAG-LR":3,"BAG-KNN":4}
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
+    #plt.subplot(236)
+    #plt.figure(figsize=(12,6))
     for each_file in file_list:
-        if '.txt' in each_file and 'IB' in each_file:
+        if '.txt' in each_file and 'IB_Slammer' in each_file:
             if 'Multi' in each_file:continue
             else:
                 pass
@@ -328,5 +330,6 @@ if __name__=='__main__':
 
         #visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
         #write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
-
+    #plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),'ABC.png'),dpi=400)
+    #plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),'ABC.pdf'),dpi=400)
     print("The total time is "+str(time.time()-start)+" s.")
