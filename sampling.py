@@ -20,7 +20,7 @@ from unbalanced_dataset.ensemble_sampling import BalanceCascade
 
 from unbalanced_dataset.pipeline import SMOTEENN
 from unbalanced_dataset.pipeline import SMOTETomek
-
+import numpy as np
 # Generate some data
 print('Generate samples using scikit-learn')
 X, Y = make_classification(n_classes=2, class_sep=2, weights=[0.1, 0.9],
@@ -34,6 +34,7 @@ def test_smote(x, y):
     print('SMOTE')
     sm = SMOTE(kind='regular', verbose=verbose)
     svmx, svmy = sm.fit_transform(x, y)
+    return svmx,svmy
 
     print('SMOTE bordeline 1')
     sm = SMOTE(kind='borderline1', verbose=verbose)
