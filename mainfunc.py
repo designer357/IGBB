@@ -278,8 +278,8 @@ if __name__=='__main__':
     #plt.subplot(236)
     #plt.figure(figsize=(12,6))
     for each_file in file_list:
-        if '.txt' in each_file and 'IB_Slammer' in each_file:
-            if 'Multi' in each_file:continue
+        if '.txt' in each_file and 'IB_' in each_file:
+            if 'Training' in each_file:continue
             else:
                 pass
         else:
@@ -298,12 +298,12 @@ if __name__=='__main__':
             accuracy_temp = [0 for i in range(len(method_dict))]
 
             data = loaddata.loadData(input_data_path, each_file)
-            X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
 
             for eachMethod, eachMethodLabel in method_dict.items():
                 output = []
                 voting_list = [[] for i in range(bagging_size)]
                 for bagging_number in range(bagging_size):
+                    X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
                     result = MainFunc(eachMethodLabel, X_train,Y_train,X_test,Y_test)
                     voting_list[bagging_number].extend(result)
                 temp = np.array(voting_list).T

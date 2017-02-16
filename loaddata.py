@@ -22,6 +22,19 @@ def loadData(input_data_path,filename):
                 val[-1]=int(val[-1])
                 data.append(val)
         return np.array(data)
+def cross_tab2(input_data_path,filename_training,filename_testing):
+    data_testing = loadData(input_data_path,filename_testing)
+    data = loadData(input_data_path,filename_training)
+    posi_data=data[data[:,-1]!=1.0]
+    nega_data=data[data[:,-1]==1.0]
+    p_index_train=[i for i in range(len(posi_data))]
+    n_index_train=[i for i in range(len(nega_data))]
+    p_train = posi_data[p_index_train]
+    n_train = nega_data[np.random.choice(n_index_train, len(p_train),replace=False)]
+    data_training = np.concatenate((n_train, p_train))
+    return data_training[:, :-1], data_training[:, -1], data_testing[:, :-1], data_testing[:, -1]
+
+
 def cross_tab(data,cross_folder,tab_cv):
     posi_data=data[data[:,-1]!=1.0]
     nega_data=data[data[:,-1]==1.0]
@@ -63,7 +76,8 @@ def cross_tab(data,cross_folder,tab_cv):
         test_data = np.append(p_test, n_test, axis=0)
 
         #Random undersampling without replacement
-        train_data = np.concatenate((nega_data[np.random.choice(n_index_train, len(p_train),replace=False)], p_train))
+        #train_data = np.concatenate((nega_data[np.random.choice(n_index_train, len(p_train),replace=False)], p_train))
+        print()
 
         return train_data[:,:-1],train_data[:,-1],test_data[:,:-1],test_data[:,-1]
 """
