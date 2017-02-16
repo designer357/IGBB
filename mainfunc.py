@@ -277,59 +277,67 @@ if __name__=='__main__':
     print("The top k is ..................."+str(top_k))
     #plt.subplot(236)
     #plt.figure(figsize=(12,6))
-    for each_file in file_list:
-        if '.txt' in each_file and 'IB_' in each_file:
-            if 'Training' in each_file:continue
-            else:
-                pass
-        else:
-            continue
-        print(each_file + " is processing......")
-        bagging_list = []
-        g_mean_list = []
-        auc_list = []
-        accuracy_list = []
-
-        for bagging_size in range(10,bg_max,bg_interval):
-            print("The bagging size is .................."+str(bagging_size))
-            bagging_list.append(bagging_size)
-            g_mean_temp = [0 for i in range(len(method_dict))]
-            auc_temp = [0 for i in range(len(method_dict))]
-            accuracy_temp = [0 for i in range(len(method_dict))]
-
-            data = loaddata.loadData(input_data_path, each_file)
-
-            for eachMethod, eachMethodLabel in method_dict.items():
-                output = []
-                voting_list = [[] for i in range(bagging_size)]
-                for bagging_number in range(bagging_size):
-                    X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0)
-                    result = MainFunc(eachMethodLabel, X_train,Y_train,X_test,Y_test)
-                    voting_list[bagging_number].extend(result)
-                temp = np.array(voting_list).T
-                for tab_i in range(len(temp)):
-                    if list(temp[tab_i]).count(positive_sign) > list(temp[tab_i]).count(negative_sign):
-                        output.append(positive_sign)
+    sampling_list = ['RUS','ROS','SMOTE','NCL','USCC']
+    for sampling in sampling_list:
+        try:
+            for each_file in file_list:
+                if '.txt' in each_file and 'IB_' in each_file:
+                    if 'Training' in each_file:continue
                     else:
-                        output.append(negative_sign)
-                g_mean,auc,accuracy = compute_metrics(output, Y_test)
-                g_mean_temp[eachMethodLabel] = g_mean
-                auc_temp[eachMethodLabel] = auc
-                accuracy_temp[eachMethodLabel] = accuracy
-            g_mean_list.append(g_mean_temp)
-            auc_list.append(auc_temp)
-            accuracy_list.append(accuracy_temp)
-        print(g_mean_list)
-        print(auc_list)
+                        pass
+                else:
+                    continue
+                print(each_file + " is processing......")
+                bagging_list = []
+                g_mean_list = []
+                auc_list = []
+                accuracy_list = []
 
-        visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
-        write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k))
+                for bagging_size in range(10,bg_max,bg_interval):
+                    print("The bagging size is .................."+str(bagging_size))
+                    bagging_list.append(bagging_size)
+                    g_mean_temp = [0 for i in range(len(method_dict))]
+                    auc_temp = [0 for i in range(len(method_dict))]
+                    accuracy_temp = [0 for i in range(len(method_dict))]
 
-        visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
-        write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k))
+                    data = loaddata.loadData(input_data_path, each_file)
 
-        #visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
-        #write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
+                    for eachMethod, eachMethodLabel in method_dict.items():
+                        output = []
+                        voting_list = [[] for i in range(bagging_size)]
+                        for bagging_number in range(bagging_size):
+                            X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0,sampling)
+                            posi_data = X_train[Y_train != 1.0]
+                            nega_data = X_train[Y_train == 1.0]
+                            print("IR is :" + str(float(len(nega_data)) / len(posi_data)))
+                            result = MainFunc(eachMethodLabel, X_train,Y_train,X_test,Y_test)
+                            voting_list[bagging_number].extend(result)
+                        temp = np.array(voting_list).T
+                        for tab_i in range(len(temp)):
+                            if list(temp[tab_i]).count(positive_sign) > list(temp[tab_i]).count(negative_sign):
+                                output.append(positive_sign)
+                            else:
+                                output.append(negative_sign)
+                        g_mean,auc,accuracy = compute_metrics(output, Y_test)
+                        g_mean_temp[eachMethodLabel] = g_mean
+                        auc_temp[eachMethodLabel] = auc
+                        accuracy_temp[eachMethodLabel] = accuracy
+                    g_mean_list.append(g_mean_temp)
+                    auc_list.append(auc_temp)
+                    accuracy_list.append(accuracy_temp)
+                print(g_mean_list)
+                print(auc_list)
+
+                visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
+                write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
+
+                visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
+                write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
+
+                #visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
+                #write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
+        except:
+            continue
     #plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),'ABC.png'),dpi=400)
     #plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),'ABC.pdf'),dpi=400)
     print("The total time is "+str(time.time()-start)+" s.")
