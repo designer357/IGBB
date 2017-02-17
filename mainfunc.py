@@ -212,9 +212,12 @@ def MainFunc(method_label,X_train,Y_train,X_test,Y_test):
     global positive_sign,negative_sign,boosting_i, top_k
 
     if method_label == 0:
-        result = igboost_clf(DecisionTreeClassifier(max_depth=2), boosting_i,top_k, X_train, Y_train, X_test, Y_test, True)
+        #result = igboost_clf(DecisionTreeClassifier(max_depth=2), boosting_i,top_k, X_train, Y_train, X_test, Y_test, True)
+        #clf = GradientBoostingClassifier(DecisionTreeClassifier(max_depth=2,random_state=1),n_estimators=30)
+        clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2,random_state=1),n_estimators=30)
+        clf.fit(X_train, Y_train)
+        result = clf.predict(X_test)
     elif method_label == 111:
-        #clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2,random_state=1),n_estimators=50)
         #clf.fit(X_train, Y_train)
         #result = clf.predict(X_test)
         result = igboost_clf(DecisionTreeClassifier(max_depth=2), boosting_i,top_k, X_train, Y_train, X_test, Y_test,False)
@@ -271,13 +274,15 @@ if __name__=='__main__':
         os.makedirs(out_put_path)
     file_list=os.listdir(input_data_path)
 
-    #method_dict={"IGBB":0,"AdaBoost":1}
-    method_dict={"IGBB":0,"BAG-DT":1,"BAG-SVM":2,"BAG-LR":3,"BAG-KNN":4}
+    method_dict={"GBDT":0}
+    #method_dict={"IGBB":0,"BAG-DT":1,"BAG-SVM":2,"BAG-LR":3,"BAG-KNN":4}
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
     #plt.subplot(236)
     #plt.figure(figsize=(12,6))
-    sampling_list = ['RUS','ROS','SMOTE','NCL','USCC']
+    #sampling_list = ['RUS','ROS','SMOTE','NCL','USCC']
+    sampling_list = ['RUS']
+
     for sampling in sampling_list:
         try:
             for each_file in file_list:
@@ -309,7 +314,7 @@ if __name__=='__main__':
                             X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0,sampling)
                             posi_data = X_train[Y_train != 1.0]
                             nega_data = X_train[Y_train == 1.0]
-                            print("IR is :" + str(float(len(nega_data)) / len(posi_data)))
+                            #print("IR is :" + str(float(len(nega_data)) / len(posi_data)))
                             result = MainFunc(eachMethodLabel, X_train,Y_train,X_test,Y_test)
                             voting_list[bagging_number].extend(result)
                         temp = np.array(voting_list).T
@@ -328,11 +333,11 @@ if __name__=='__main__':
                 print(g_mean_list)
                 print(auc_list)
 
-                visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
-                write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
+                #visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
+                #write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
 
-                visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
-                write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
+                #visualize.plotting('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
+                #write_to_disk('Auc',each_file,method_dict,bagging_list,np.array(auc_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
 
                 #visualize.plotting('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
                 #write_to_disk('Accuracy',each_file,method_dict,bagging_list,np.array(accuracy_list),text=str(boosting_i)+'%'+str(top_k))
