@@ -117,6 +117,9 @@ def cross_tab(data,cross_folder,tab_cv, flag):
         elif flag == "USCC":
             cc_ = ClusterCentroids(verbose=True)
             trainX, trainY = cc_.fit_transform(train_data[:,:-1], train_data[:,-1])
+        elif flag == 'None':
+            trainX = train_data[:, :-1]
+            trainY = train_data[:, -1]
         return trainX,trainY,testX,testY
 """
 input_data_path = os.path.join(os.getcwd(),"BGPData")

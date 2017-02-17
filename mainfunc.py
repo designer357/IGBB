@@ -266,7 +266,7 @@ if __name__=='__main__':
     boosting_i = 30
     top_k = 12
     bg_max = 111
-    bg_interval =  10
+    bg_interval =  1000
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
@@ -281,7 +281,7 @@ if __name__=='__main__':
     #plt.subplot(236)
     #plt.figure(figsize=(12,6))
     #sampling_list = ['RUS','ROS','SMOTE','NCL','USCC']
-    sampling_list = ['RUS']
+    sampling_list = ['None']
 
     for sampling in sampling_list:
         try:
@@ -298,7 +298,7 @@ if __name__=='__main__':
                 auc_list = []
                 accuracy_list = []
 
-                for bagging_size in range(10,bg_max,bg_interval):
+                for bagging_size in range(1,bg_max,bg_interval):
                     print("The bagging size is .................."+str(bagging_size))
                     bagging_list.append(bagging_size)
                     g_mean_temp = [0 for i in range(len(method_dict))]
