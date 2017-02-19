@@ -3,7 +3,6 @@ import os
 import time
 import math
 import evaluation
-start = time.time()
 import numpy as np
 import loaddata
 import visualize
@@ -212,7 +211,7 @@ def MainFunc(method_label,X_train,Y_train,X_test,Y_test):
     global positive_sign,negative_sign,boosting_i, top_k
 
     if method_label == 0:
-        #result = igboost_clf(DecisionTreeClassifier(max_depth=2), boosting_i,top_k, X_train, Y_train, X_test, Y_test, True)
+        #result = igboost_clf(DecisionTreeClassifier(max_depth=2), boosting_i,top_k, X_train, Y_train, X_test, Y_test, False)
         #clf = GradientBoostingClassifier(DecisionTreeClassifier(max_depth=2,random_state=1),n_estimators=30)
         clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2,random_state=1),n_estimators=30)
         clf.fit(X_train, Y_train)
@@ -266,7 +265,7 @@ if __name__=='__main__':
     boosting_i = 30
     top_k = 12
     bg_max = 111
-    bg_interval =  1000
+    bg_interval =  20
     input_data_path = os.path.join(os.getcwd(),"BGPData")
 
     out_put_path = os.path.join(os.getcwd(),"Output_BGPData")
@@ -274,8 +273,8 @@ if __name__=='__main__':
         os.makedirs(out_put_path)
     file_list=os.listdir(input_data_path)
 
-    method_dict={"GBDT":0}
-    #method_dict={"IGBB":0,"BAG-DT":1,"BAG-SVM":2,"BAG-LR":3,"BAG-KNN":4}
+    #method_dict={"IGBB":0}
+    method_dict={"IGBB":0,"BAG-DT":1,"BAG-SVM":2,"BAG-LR":3,"BAG-KNN":4}
     #method_dict={"AdaBoost":1}
     print("The top k is ..................."+str(top_k))
     #plt.subplot(236)
@@ -298,7 +297,7 @@ if __name__=='__main__':
                 auc_list = []
                 accuracy_list = []
 
-                for bagging_size in range(1,bg_max,bg_interval):
+                for bagging_size in range(10,bg_max,bg_interval):
                     print("The bagging size is .................."+str(bagging_size))
                     bagging_list.append(bagging_size)
                     g_mean_temp = [0 for i in range(len(method_dict))]
@@ -310,6 +309,7 @@ if __name__=='__main__':
                     for eachMethod, eachMethodLabel in method_dict.items():
                         output = []
                         voting_list = [[] for i in range(bagging_size)]
+                        start = time.time()
                         for bagging_number in range(bagging_size):
                             X_train, Y_train, X_test, Y_test = loaddata.cross_tab(data, 2, 0,sampling)
                             posi_data = X_train[Y_train != 1.0]
@@ -327,12 +327,16 @@ if __name__=='__main__':
                         g_mean_temp[eachMethodLabel] = g_mean
                         auc_temp[eachMethodLabel] = auc
                         accuracy_temp[eachMethodLabel] = accuracy
+                        print("The  time is of " + str(eachMethod) + "at bagging size :" + str(bagging_size) + "is " + str(
+                            time.time() - start) + " s.")
+
                     g_mean_list.append(g_mean_temp)
                     auc_list.append(auc_temp)
                     accuracy_list.append(accuracy_temp)
-                print(g_mean_list)
-                print(auc_list)
 
+                #print(g_mean_list)
+                #print(auc_list)
+                print("The total time is "+str(time.time()-start)+" s.")
                 #visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
                 #write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
 
@@ -345,4 +349,4 @@ if __name__=='__main__':
             continue
     #plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),'ABC.png'),dpi=400)
     #plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),'ABC.pdf'),dpi=400)
-    print("The total time is "+str(time.time()-start)+" s.")
+    #print("The total time is "+str(time.time()-start)+" s.")
