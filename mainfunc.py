@@ -336,7 +336,7 @@ if __name__=='__main__':
 
                 #print(g_mean_list)
                 #print(auc_list)
-                print("The total time is "+str(time.time()-start)+" s.")
+                #print("The total time is "+str(time.time()-start)+" s.")
                 #visualize.plotting('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
                 #write_to_disk('G_mean',each_file,method_dict,bagging_list,np.array(g_mean_list),text=str(boosting_i)+'%'+str(top_k)+str(sampling))
 
@@ -349,4 +349,4 @@ if __name__=='__main__':
             continue
     #plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),'ABC.png'),dpi=400)
     #plt.savefig(os.path.join(os.path.join(os.getcwd(),'images'),'ABC.pdf'),dpi=400)
-    #print("The total time is "+str(time.time()-start)+" s.")
+    print("The total time is "+str(time.time()-start)+" s.")
